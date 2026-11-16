@@ -188,13 +188,11 @@ async function run() {
     feature: "Import flow — validation",
     description: "Precise error state for an unrecognized file (no vague errors).",
     setup: async (p) => {
-      await p
-        .locator('input[type="file"]')
-        .setInputFiles({
-          name: "not-a-chat.txt",
-          mimeType: "text/plain",
-          buffer: Buffer.from("random notes\nwithout timestamps"),
-        });
+      await p.locator('input[type="file"]').setInputFiles({
+        name: "not-a-chat.txt",
+        mimeType: "text/plain",
+        buffer: Buffer.from("random notes\nwithout timestamps"),
+      });
       await p.getByText(/Import failed/i).waitFor({ timeout: 20000 });
     },
   });
@@ -210,13 +208,11 @@ async function run() {
         join(ROOT, "tests/fixtures/whatsapp/group-small.txt"),
         "utf8",
       );
-      await p
-        .locator('input[type="file"]')
-        .setInputFiles({
-          name: "weekend-hikers.txt",
-          mimeType: "text/plain",
-          buffer: Buffer.from(fixture),
-        });
+      await p.locator('input[type="file"]').setInputFiles({
+        name: "weekend-hikers.txt",
+        mimeType: "text/plain",
+        buffer: Buffer.from(fixture),
+      });
       await p.getByText("weekend-hikers.txt").waitFor({ timeout: 30000 });
     },
   });
@@ -295,13 +291,11 @@ async function run() {
         lines.push(`${date}, ${time} - ${sender}: ${phrases[i % phrases.length]}`);
       }
       const fixture = lines.join("\n");
-      await p
-        .locator('input[type="file"]')
-        .setInputFiles({
-          name: "big-export.txt",
-          mimeType: "text/plain",
-          buffer: Buffer.from(fixture),
-        });
+      await p.locator('input[type="file"]').setInputFiles({
+        name: "big-export.txt",
+        mimeType: "text/plain",
+        buffer: Buffer.from(fixture),
+      });
       await p
         .locator('[role="progressbar"]')
         .waitFor({ timeout: 8000 })
@@ -562,13 +556,11 @@ async function run() {
         "utf8",
       );
       await p.getByRole("button", { name: "Go to Import" }).click();
-      await p
-        .locator('input[type="file"]')
-        .setInputFiles({
-          name: "result.json",
-          mimeType: "application/json",
-          buffer: Buffer.from(fixture),
-        });
+      await p.locator('input[type="file"]').setInputFiles({
+        name: "result.json",
+        mimeType: "application/json",
+        buffer: Buffer.from(fixture),
+      });
       await p.getByRole("button", { name: "Go to Compare" }).click();
       await p.getByText("Conversation comparison").waitFor({ timeout: 20000 });
     },
