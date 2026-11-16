@@ -1,0 +1,57 @@
+---
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
+import "@/styles/global.css";
+import { SITE } from "@/lib/site";
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Path without base prefix, e.g. "/whatsapp-chat-wrapped/" */
+  path?: string;
+  /** Structured data JSON-LD objects (already truthful). */
+  structuredData?: object[];
+}
+
+const { title, description, path = "/", structuredData = [] } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const canonical = `${SITE.url}${import.meta.env.BASE_URL}${path}`.replace(/([^:])\/\//g, "$1/");
+const ogImage = `${SITE.url}${import.meta.env.BASE_URL}/images/og-default.png`.replace(/([^:])\/\//g, "$1/");
+const fullTitle = title.includes(SITE.name) ? title : `${title} · ${SITE.name}`;
+---
+
+<!doctype html>
+<html lang="en" class="min-h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="manifest" href={`${base}/manifest.webmanifest`} />
+    <meta name="theme-color" content="#0b0910" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {structuredData.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  </head>
+  <body class="min-h-dvh bg-[#0b0910] text-zinc-100 antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-violet-600 focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to content
+    </a>
+    <slot />
+  </body>
+</html>

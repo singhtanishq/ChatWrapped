@@ -1,1 +1,73 @@
+# Private project instructions
 ChatWrapped.md
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.env
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+secrets/
+private/
+credentials/
+credentials.json
+service-account.json
+
+# Node / Astro / Vite
+node_modules/
+.pnpm-store/
+.astro/
+dist/
+build/
+.cache/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+
+# Python tooling if used for scripts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local user data and private exports
+user-data/
+private-data/
+local-data/
+chat-exports/
+conversation-exports/
+uploaded-chats/
+private-uploads/
+
+# Logs and temporary files
+logs/
+*.log
+*.log.*
+tmp/
+temp/
+
+# Editor and OS
+.DS_Store
+.AppleDouble
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Deployment/tool caches
+.vercel/
+.netlify/
