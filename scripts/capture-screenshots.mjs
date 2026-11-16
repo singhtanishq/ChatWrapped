@@ -32,7 +32,20 @@ async function settle(page, ms = 350) {
 }
 
 /** Assert + capture a viewport (or full-page) screenshot with manifest entry. */
-async function shot(browser, { name, sectionId, url, setup, description, feature, viewport = "desktop", fullPage = false, assertFn }) {
+async function shot(
+  browser,
+  {
+    name,
+    sectionId,
+    url,
+    setup,
+    description,
+    feature,
+    viewport = "desktop",
+    fullPage = false,
+    assertFn,
+  },
+) {
   const context = await browser.newContext({
     viewport: viewport === "desktop" ? DESKTOP : MOBILE,
     deviceScaleFactor: 1,
@@ -52,7 +65,8 @@ async function shot(browser, { name, sectionId, url, setup, description, feature
     const file = join(dir, `${bareName}.png`);
     await page.screenshot({ path: file, fullPage });
     manifest.push({
-      path: `docs/screenshots/${sectionId}/${bareName}.png`,
+      path: `docs/screenshots/${sectionId}/${bareName}.png`, // full repo-relative path
+      // eslint-disable-next-line no-useless-escape
       section: sectionId,
       feature,
       description,
@@ -63,7 +77,9 @@ async function shot(browser, { name, sectionId, url, setup, description, feature
     console.log(`✓ ${sectionId}/${name}.png`);
   } catch (err) {
     console.error(`✗ ${sectionId}/${name}.png — ${err.message.split("\n")[0]}`);
-    await page.screenshot({ path: join(OUT, `${sectionId}-${name}-FAILED.png`), fullPage: true }).catch(() => {});
+    await page
+      .screenshot({ path: join(OUT, `${sectionId}-${name}-FAILED.png`), fullPage: true })
+      .catch(() => {});
     process.exitCode = 1;
   } finally {
     await context.close();
@@ -78,7 +94,10 @@ async function demoLoaded(page) {
 
 async function run() {
   // Serve the production build.
-  const server = spawn("pnpm", ["preview", "--port", "4322", "--strictPort"], { cwd: ROOT, stdio: "pipe" });
+  const server = spawn("pnpm", ["preview", "--port", "4322", "--strictPort"], {
+    cwd: ROOT,
+    stdio: "pipe",
+  });
   const started = await new Promise((resolve, reject) => {
     const t = setTimeout(() => reject(new Error("preview server timeout")), 45000);
     const poll = async () => {
@@ -108,9 +127,12 @@ async function run() {
     sectionId: "01-landing",
     url: landingUrl,
     feature: "Landing page",
-    description: "Hero with headline, privacy badge and the two CTAs (Create my ChatWrapped / See an example).",
+    description:
+      "Hero with headline, privacy badge and the two CTAs (Create my ChatWrapped / See an example).",
     assertFn: async (p) => {
-      await p.getByRole("heading", { name: /Your chats have a story/i }).waitFor({ timeout: 20000 });
+      await p
+        .getByRole("heading", { name: /Your chats have a story/i })
+        .waitFor({ timeout: 20000 });
     },
   });
   await shot(browser, {
@@ -118,7 +140,8 @@ async function run() {
     sectionId: "01-landing",
     url: landingUrl,
     feature: "Landing page",
-    description: "Example recap preview cards and supported-platform positioning (illustrative values, clearly labeled).",
+    description:
+      "Example recap preview cards and supported-platform positioning (illustrative values, clearly labeled).",
     setup: async (p) => {
       await p.getByText("Two platforms, one privacy-first analyzer").scrollIntoViewIfNeeded();
       await p.evaluate(() => window.scrollBy(0, -60));
@@ -141,7 +164,8 @@ async function run() {
     url: landingUrl,
     fullPage: true,
     feature: "Landing page",
-    description: "Complete landing page: hero, example cards, platforms, how-it-works, FAQ and footer with independence disclaimer.",
+    description:
+      "Complete landing page: hero, example cards, platforms, how-it-works, FAQ and footer with independence disclaimer.",
   });
 
   /* ---------------- 02 import ---------------- */
@@ -152,7 +176,9 @@ async function run() {
     feature: "Import flow",
     description: "Analyzer import screen with drag-and-drop zone and file guidance.",
     assertFn: async (p) => {
-      await p.getByRole("heading", { name: /Import your conversation/i }).waitFor({ timeout: 20000 });
+      await p
+        .getByRole("heading", { name: /Import your conversation/i })
+        .waitFor({ timeout: 20000 });
     },
   });
   await shot(browser, {
@@ -164,7 +190,11 @@ async function run() {
     setup: async (p) => {
       await p
         .locator('input[type="file"]')
-        .setInputFiles({ name: "not-a-chat.txt", mimeType: "text/plain", buffer: Buffer.from("random notes\nwithout timestamps") });
+        .setInputFiles({
+          name: "not-a-chat.txt",
+          mimeType: "text/plain",
+          buffer: Buffer.from("random notes\nwithout timestamps"),
+        });
       await p.getByText(/Import failed/i).waitFor({ timeout: 20000 });
     },
   });
@@ -173,10 +203,20 @@ async function run() {
     sectionId: "02-import",
     url: appUrl,
     feature: "Import flow — result preview",
-    description: "Import result for a real WhatsApp group fixture with parser warnings and participant counts.",
+    description:
+      "Import result for a real WhatsApp group fixture with parser warnings and participant counts.",
     setup: async (p) => {
-      const fixture = (await import("node:fs")).readFileSync(join(ROOT, "tests/fixtures/whatsapp/group-small.txt"), "utf8");
-      await p.locator('input[type="file"]').setInputFiles({ name: "weekend-hikers.txt", mimeType: "text/plain", buffer: Buffer.from(fixture) });
+      const fixture = (await import("node:fs")).readFileSync(
+        join(ROOT, "tests/fixtures/whatsapp/group-small.txt"),
+        "utf8",
+      );
+      await p
+        .locator('input[type="file"]')
+        .setInputFiles({
+          name: "weekend-hikers.txt",
+          mimeType: "text/plain",
+          buffer: Buffer.from(fixture),
+        });
       await p.getByText("weekend-hikers.txt").waitFor({ timeout: 30000 });
     },
   });
@@ -187,9 +227,12 @@ async function run() {
     sectionId: "03-platform-selection",
     url: appUrl,
     feature: "Platform selection",
-    description: "WhatsApp and Telegram platform cards with per-platform export instructions before choosing a file.",
+    description:
+      "WhatsApp and Telegram platform cards with per-platform export instructions before choosing a file.",
     setup: async (p) => {
-      await p.getByRole("heading", { name: /Import your conversation/i }).waitFor({ timeout: 20000 });
+      await p
+        .getByRole("heading", { name: /Import your conversation/i })
+        .waitFor({ timeout: 20000 });
       await p.evaluate(() => window.scrollBy(0, 120));
     },
   });
@@ -200,7 +243,8 @@ async function run() {
     sectionId: "04-participant-setup",
     url: `${appUrl}?demo=friends`,
     feature: "Participant setup",
-    description: "Setup screen: include/exclude participants, rename for presentation, mark yourself, date range and filters.",
+    description:
+      "Setup screen: include/exclude participants, rename for presentation, mark yourself, date range and filters.",
     assertFn: demoLoaded,
     setup: async (p) => {
       await p.getByRole("button", { name: "Go to Setup" }).click();
@@ -251,8 +295,17 @@ async function run() {
         lines.push(`${date}, ${time} - ${sender}: ${phrases[i % phrases.length]}`);
       }
       const fixture = lines.join("\n");
-      await p.locator('input[type="file"]').setInputFiles({ name: "big-export.txt", mimeType: "text/plain", buffer: Buffer.from(fixture) });
-      await p.locator('[role="progressbar"]').waitFor({ timeout: 8000 }).catch(() => undefined);
+      await p
+        .locator('input[type="file"]')
+        .setInputFiles({
+          name: "big-export.txt",
+          mimeType: "text/plain",
+          buffer: Buffer.from(fixture),
+        });
+      await p
+        .locator('[role="progressbar"]')
+        .waitFor({ timeout: 8000 })
+        .catch(() => undefined);
       // The progress screen is brief; wait for either state then capture fast.
     },
     description: "Parsing/analysis progress bar while workers process a 15 MB export.",
@@ -299,7 +352,8 @@ async function run() {
     sectionId: "06-dashboard",
     url: `${appUrl}?demo=friends`,
     feature: "Emoji & word insights",
-    description: "Most-used emoji ranking and stopword-filtered signature words with punctuation rates.",
+    description:
+      "Most-used emoji ranking and stopword-filtered signature words with punctuation rates.",
     assertFn: dashSetup,
     setup: async (p) => {
       await p.getByRole("tab", { name: "Emoji & words" }).click();
@@ -311,7 +365,8 @@ async function run() {
     sectionId: "06-dashboard",
     url: `${appUrl}?demo=friends`,
     feature: "Response-time analysis",
-    description: "Response statistics with median/average/fastest values, leaderboard and the documented burst-rule explainer.",
+    description:
+      "Response statistics with median/average/fastest values, leaderboard and the documented burst-rule explainer.",
     assertFn: dashSetup,
     setup: async (p) => {
       await p.getByRole("tab", { name: "Responses" }).click();
@@ -323,7 +378,8 @@ async function run() {
     sectionId: "06-dashboard",
     url: `${appUrl}?demo=friends`,
     feature: "Conversation records & awards",
-    description: "Records (longest message, busiest day, streak) and evidence-based participant awards with explicit thresholds.",
+    description:
+      "Records (longest message, busiest day, streak) and evidence-based participant awards with explicit thresholds.",
     assertFn: dashSetup,
     setup: async (p) => {
       await p.getByRole("tab", { name: "Records" }).click();
@@ -401,7 +457,8 @@ async function run() {
     name: "07-story-experience/offline-story",
     sectionId: "07-story-experience",
     feature: "Offline support",
-    description: "The story experience working with the network disconnected — served entirely from the service worker cache.",
+    description:
+      "The story experience working with the network disconnected — served entirely from the service worker cache.",
     viewport: "desktop",
     assertFn: async (p) => {
       await p.goto(`${appUrl}?demo=friends#/stories`, { waitUntil: "networkidle" });
@@ -434,7 +491,10 @@ async function run() {
       description: `Story viewer rendered with the ${label} theme (slide content from calculated demo data).`,
       assertFn: async (p) => {
         await p.locator(".theme-surface").waitFor({ timeout: 30000 });
-        await p.locator(".theme-surface", { hasText: label.split(" ")[0] }).waitFor({ timeout: 5000 }).catch(() => undefined);
+        await p
+          .locator(".theme-surface", { hasText: label.split(" ")[0] })
+          .waitFor({ timeout: 5000 })
+          .catch(() => undefined);
       },
     });
   }
@@ -445,7 +505,8 @@ async function run() {
     sectionId: "09-share-studio",
     url: `${appUrl}?demo=friends#/cards`,
     feature: "Share Card Studio",
-    description: "Card studio with live canvas preview, size selector, theme grid and customization controls.",
+    description:
+      "Card studio with live canvas preview, size selector, theme grid and customization controls.",
     assertFn: async (p) => {
       await p.getByText(/Share Card Studio/i).waitFor({ timeout: 45000 });
       await p.locator("canvas").waitFor({ timeout: 20000 });
@@ -456,7 +517,8 @@ async function run() {
     sectionId: "09-share-studio",
     url: `${appUrl}?demo=friends#/cards`,
     feature: "Card customization",
-    description: "Customized card: headline override, caption and attribution toggle with the Editorial theme.",
+    description:
+      "Customized card: headline override, caption and attribution toggle with the Editorial theme.",
     assertFn: async (p) => {
       await p.getByText(/Share Card Studio/i).waitFor({ timeout: 45000 });
       await p.locator("canvas").waitFor({ timeout: 20000 });
@@ -473,7 +535,8 @@ async function run() {
     sectionId: "09-share-studio",
     url: `${appUrl}?demo=friends#/cards`,
     feature: "Card sizes",
-    description: "Square 1080×1080 card preview with export actions (PNG, native share, ZIP, copy caption).",
+    description:
+      "Square 1080×1080 card preview with export actions (PNG, native share, ZIP, copy caption).",
     assertFn: async (p) => {
       await p.getByText(/Share Card Studio/i).waitFor({ timeout: 45000 });
       await p.locator("canvas").waitFor({ timeout: 20000 });
@@ -490,14 +553,22 @@ async function run() {
     sectionId: "10-comparison",
     url: `${appUrl}?demo=friends`,
     feature: "Conversation comparison",
-    description: "Side-by-side comparison of two conversations (sample + an imported fixture) with honest sample-size rows.",
+    description:
+      "Side-by-side comparison of two conversations (sample + an imported fixture) with honest sample-size rows.",
     assertFn: demoLoaded,
     setup: async (p) => {
-      const fixture = (await import("node:fs")).readFileSync(join(ROOT, "tests/fixtures/telegram/group-small.json"), "utf8");
+      const fixture = (await import("node:fs")).readFileSync(
+        join(ROOT, "tests/fixtures/telegram/group-small.json"),
+        "utf8",
+      );
       await p.getByRole("button", { name: "Go to Import" }).click();
       await p
         .locator('input[type="file"]')
-        .setInputFiles({ name: "result.json", mimeType: "application/json", buffer: Buffer.from(fixture) });
+        .setInputFiles({
+          name: "result.json",
+          mimeType: "application/json",
+          buffer: Buffer.from(fixture),
+        });
       await p.getByRole("button", { name: "Go to Compare" }).click();
       await p.getByText("Conversation comparison").waitFor({ timeout: 20000 });
     },
@@ -509,7 +580,8 @@ async function run() {
     sectionId: "11-privacy",
     url: `${appUrl}?demo=friends`,
     feature: "Privacy Center",
-    description: "Privacy Center dialog: local-processing guarantee, offline status, opt-in recap saving and session controls.",
+    description:
+      "Privacy Center dialog: local-processing guarantee, offline status, opt-in recap saving and session controls.",
     assertFn: demoLoaded,
     setup: async (p) => {
       await p.getByRole("button", { name: "Privacy", exact: true }).click();
@@ -521,7 +593,8 @@ async function run() {
     sectionId: "11-privacy",
     url: `${BASE_URL}/privacy/`,
     feature: "Privacy policy",
-    description: "The full privacy policy page with storage model and hosting-transparency sections.",
+    description:
+      "The full privacy policy page with storage model and hosting-transparency sections.",
     fullPage: true,
     assertFn: async (p) => {
       await p.getByRole("heading", { name: "Privacy Policy" }).waitFor({ timeout: 20000 });
@@ -545,7 +618,9 @@ async function run() {
     description: "Import screen on mobile with touch-friendly upload zone.",
     viewport: "mobile",
     assertFn: async (p) => {
-      await p.getByRole("heading", { name: /Import your conversation/i }).waitFor({ timeout: 20000 });
+      await p
+        .getByRole("heading", { name: /Import your conversation/i })
+        .waitFor({ timeout: 20000 });
     },
   });
   await shot(browser, {
@@ -575,9 +650,12 @@ async function run() {
     sectionId: "13-guides",
     url: `${BASE_URL}/how-to-export-whatsapp-chat/`,
     feature: "WhatsApp export guide",
-    description: "Step-by-step WhatsApp export instructions for Android and iPhone with HowTo structured data.",
+    description:
+      "Step-by-step WhatsApp export instructions for Android and iPhone with HowTo structured data.",
     assertFn: async (p) => {
-      await p.getByRole("heading", { name: /How to Export a WhatsApp Chat/i }).waitFor({ timeout: 20000 });
+      await p
+        .getByRole("heading", { name: /How to Export a WhatsApp Chat/i })
+        .waitFor({ timeout: 20000 });
     },
   });
   await shot(browser, {
@@ -587,7 +665,9 @@ async function run() {
     feature: "Telegram export guide",
     description: "Telegram Desktop JSON export walkthrough with troubleshooting section.",
     assertFn: async (p) => {
-      await p.getByRole("heading", { name: /How to Export a Telegram Chat/i }).waitFor({ timeout: 20000 });
+      await p
+        .getByRole("heading", { name: /How to Export a Telegram Chat/i })
+        .waitFor({ timeout: 20000 });
     },
   });
   await shot(browser, {
@@ -595,9 +675,12 @@ async function run() {
     sectionId: "13-guides",
     url: `${BASE_URL}/how-chat-analysis-works/`,
     feature: "Metric documentation",
-    description: "Public explanation of the normalized model, response burst rules, conversation starts and emoji counting.",
+    description:
+      "Public explanation of the normalized model, response burst rules, conversation starts and emoji counting.",
     assertFn: async (p) => {
-      await p.getByRole("heading", { name: /How Chat Analysis Works/i }).waitFor({ timeout: 20000 });
+      await p
+        .getByRole("heading", { name: /How Chat Analysis Works/i })
+        .waitFor({ timeout: 20000 });
     },
   });
 
@@ -625,7 +708,7 @@ function writeManifest() {
   ];
   manifest.forEach((m, i) => {
     lines.push(
-      `| ${i + 1} | \`${m.path.replace("docs/screenshots/", "")}\` | ${m.feature} | ${m.description} | ${m.viewport} | ${m.date} | ${m.validated} |`
+      `| ${i + 1} | \`${m.path}\` | ${m.feature} | ${m.description} | ${m.viewport} | ${m.date} | ${m.validated} |`,
     );
   });
   lines.push("", `Total: ${manifest.length} approved screenshots.`, "");
