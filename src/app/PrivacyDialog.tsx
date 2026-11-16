@@ -92,6 +92,7 @@ export function PrivacyDialog() {
                 const recap = {
                   id: `recap-${Date.now()}`,
                   name: sc.conversation.title || sc.fileName,
+                  title: sc.conversation.title || sc.fileName,
                   savedAt: Date.now(),
                   platform: sc.conversation.platform,
                   participants: sc.conversation.participants.map((p) => p.displayName),

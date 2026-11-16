@@ -296,7 +296,7 @@ export const useApp = create<AppState>((set, get) => ({
           : c,
       ),
     }));
-    await get().recompute(activeId);
+    if (activeId) await get().recompute(activeId);
     set({ status: "ready", progress: { pct: 100, phase: "Done" } });
   },
 
@@ -352,11 +352,15 @@ export function activeParticipants(
   sc: SessionConversation | undefined,
 ): Array<Participant & { effectiveName: string }> {
   if (!sc) return [];
-  return sc.conversation.participants.map((p) => ({
-    ...p,
-    effectiveName: displayName(sc, p.id),
-    isCurrentUser: p.id === sc.setup.currentUserId || undefined,
-  }));
+  return sc.conversation.participants.map((p) => {
+    const { isCurrentUser, ...rest } = p;
+    void isCurrentUser;
+    return {
+      ...rest,
+      effectiveName: displayName(sc, p.id),
+      ...(p.id === sc.setup.currentUserId ? { isCurrentUser: true as const } : {}),
+    };
+  });
 }
 
 export function readThemeIdParam(): ThemeId | null {

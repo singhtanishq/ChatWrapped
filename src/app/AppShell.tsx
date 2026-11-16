@@ -7,7 +7,7 @@ import { StoryStep } from "./steps/StoryStep";
 import { CardsStep } from "./steps/CardsStep";
 import { CompareStep } from "./steps/CompareStep";
 import { PrivacyDialog } from "./PrivacyDialog";
-import { Badge, Button, ConfirmButton } from "@/components/ui/primitives";
+import { Badge, ConfirmButton } from "@/components/ui/primitives";
 import { SITE } from "@/lib/site";
 import { openPrivacyDialog } from "./uiState";
 

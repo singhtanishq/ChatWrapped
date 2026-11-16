@@ -2,6 +2,7 @@ import eslint from "@eslint/js";
 import tseslint from "typescript-eslint";
 import reactHooks from "eslint-plugin-react-hooks";
 import prettier from "eslint-config-prettier";
+import globals from "globals";
 
 export default tseslint.config(
   {
@@ -14,6 +15,7 @@ export default tseslint.config(
       "coverage/**",
       "docs/screenshots/**",
       "scripts/**",
+      "tmp/**",
     ],
   },
   eslint.configs.recommended,
@@ -28,6 +30,10 @@ export default tseslint.config(
       "prefer-const": "error",
       "no-console": ["warn", { allow: ["warn", "error", "info"] }],
     },
+  },
+  {
+    files: ["public/sw.js"],
+    languageOptions: { globals: { ...globals.serviceworker, ...globals.browser } },
   },
   prettier,
 );

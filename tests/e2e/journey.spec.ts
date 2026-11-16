@@ -82,13 +82,11 @@ test.describe("visitor journey", () => {
 
   test("invalid file shows precise error", async ({ page }) => {
     await page.goto("app/");
-    await page
-      .locator('input[type="file"]')
-      .setInputFiles({
-        name: "garbage.txt",
-        mimeType: "text/plain",
-        buffer: Buffer.from("this is not a chat export at all\nno timestamps here"),
-      });
+    await page.locator('input[type="file"]').setInputFiles({
+      name: "garbage.txt",
+      mimeType: "text/plain",
+      buffer: Buffer.from("this is not a chat export at all\nno timestamps here"),
+    });
     await expect(page.getByText(/Import failed|could not be recognized/i).first()).toBeVisible({
       timeout: 20_000,
     });

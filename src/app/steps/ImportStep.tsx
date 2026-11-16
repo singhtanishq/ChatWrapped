@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useApp } from "../store";
 import { Badge, Button, Callout, Panel, Spinner } from "@/components/ui/primitives";
 import { Select } from "@/components/ui/controls";

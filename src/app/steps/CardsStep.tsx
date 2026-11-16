@@ -238,7 +238,7 @@ export function CardsStep() {
             <div className="space-y-3">
               <TextInput
                 label="Headline override"
-                placeholder={slide.title.split("\n")[0]}
+                placeholder={slide.title.split("\n")[0] ?? ""}
                 value={cardOptions.headline ?? ""}
                 onChange={(v) => setCardOptions({ headline: v === "" ? null : v })}
               />

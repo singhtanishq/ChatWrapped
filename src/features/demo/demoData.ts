@@ -19,6 +19,7 @@ export interface DemoConfig {
     nightOwl?: boolean;
     earlyBird?: boolean;
     verbose?: boolean;
+    emojiHeavy?: boolean;
   }>;
   /** Inclusive month range, e.g. 2024-06 → 2024-11. */
   startYear: number;
@@ -173,6 +174,7 @@ interface Profile {
   nightOwl: boolean;
   earlyBird: boolean;
   verbose: boolean;
+  emojiHeavy?: boolean;
 }
 
 /** Weighted participant pick with per-profile hour preferences. */
@@ -258,7 +260,7 @@ export function generateDemoConversation(configId: DemoConfig["id"]): ParsedConv
 
   // A couple of system messages at the start, like a real export.
   const first = messages[0];
-  if (first) {
+  if (first && first.timestamp !== null) {
     messages.unshift({
       id: `d-${idCounter++}`,
       participantId: "system",

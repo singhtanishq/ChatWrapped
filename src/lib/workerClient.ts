@@ -8,6 +8,13 @@ import type { ParsedConversation, ParseOptions, ParseResult } from "@/features/t
 import type { DetectedFormat } from "@/features/parsers/detect";
 import type { WorkerRequest, WorkerResponse } from "@/workers/protocol";
 
+/** Distributive Omit so the request union stays a union after removing id. */
+type RequestPayload = WorkerRequest extends infer T
+  ? T extends { requestId: number }
+    ? Omit<T, "requestId">
+    : never
+  : never;
+
 export interface JobEvents {
   onProgress?: (pct: number, phase: string) => void;
 }
@@ -64,7 +71,7 @@ class WorkerClient {
 
   private post<T>(
     kind: "parser" | "analytics",
-    request: Omit<WorkerRequest, "requestId">,
+    request: RequestPayload,
     events?: JobEvents,
   ): Promise<T> {
     const worker = this.ensure(kind);
@@ -85,7 +92,10 @@ class WorkerClient {
     options?: ParseOptions,
     events?: JobEvents,
   ): Promise<ParseResult> {
-    return this.post("parser", { kind: "parse", content, format, options }, events);
+    const request: RequestPayload = options
+      ? { kind: "parse", content, format, options }
+      : { kind: "parse", content, format };
+    return this.post("parser", request, events);
   }
 
   analyze(

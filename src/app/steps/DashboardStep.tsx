@@ -282,7 +282,7 @@ function ActivityTab({ r }: { r: AnalyticsResult }) {
         <VBars
           values={r.hourly}
           labels={hourLabels}
-          highlightIndex={r.mostActiveHour ?? undefined}
+          {...(r.mostActiveHour !== null ? { highlightIndex: r.mostActiveHour } : {})}
         />
         <p className="mt-3 text-xs text-zinc-400">
           Peak:{" "}
