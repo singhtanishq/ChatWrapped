@@ -1,0 +1,119 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { SITE, DISCLAIMER } from "@/lib/site";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="WhatsApp Chat Wrapped — Turn Your WhatsApp Export Into a Story"
+  description="Create a personalized WhatsApp chat recap: message statistics, emoji insights, response times and a shareable story. Free and private — your export is analyzed in your browser."
+  path="/whatsapp-chat-wrapped/"
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">WhatsApp Chat Wrapped</h1>
+    <p class="mt-4 text-lg text-zinc-300">
+      Your WhatsApp conversations already hold a story — message streaks, late-night talks, favorite
+      emoji, who starts every conversation. ChatWrapped turns the official WhatsApp TXT export into
+      that story: accurate statistics, a personalized recap sequence and downloadable share cards.
+      Free, without an account, and processed entirely in your browser.
+    </p>
+    <a
+      href={`${base}/app/`}
+      class="mt-8 inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-fuchsia-950/40 transition hover:scale-[1.02]"
+    >
+      Wrap my WhatsApp chat →
+    </a>
+
+    <div class="prose-cw">
+      <h2>What you get from a WhatsApp export</h2>
+      <ul>
+        <li>
+          <strong>Message analytics</strong> — totals, words, characters, average lengths and per-participant
+          shares.
+        </li>
+        <li>
+          <strong>Time insights</strong> — monthly trends, hour × weekday heatmap, weekday rhythm, longest
+          active-day streak.
+        </li>
+        <li>
+          <strong>Response rhythm</strong> — median reply times per participant, measured with a documented
+          burst rule.
+        </li>
+        <li>
+          <strong>Emoji & word profiles</strong> — grapheme-safe emoji counting and stopword-filtered
+          signature words.
+        </li>
+        <li>
+          <strong>A personalized story</strong> — 8–15 slides built from your real numbers, with nine
+          visual themes.
+        </li>
+        <li>
+          <strong>Share cards</strong> — 1080×1920, 1080×1350, 1080×1080 and 1200×630 PNGs, individually
+          or as a ZIP.
+        </li>
+      </ul>
+
+      <h2>Which WhatsApp exports are supported?</h2>
+      <p>
+        ChatWrapped reads the plain-text chat export that WhatsApp itself generates — on Android
+        (“Export chat” in the chat menu, choose <strong>without media</strong>) and on iPhone (the
+        same option from the contact or group page). Both Android and iOS timestamp styles are
+        parsed automatically, including 12-hour and 24-hour clocks, multiline messages, attachment
+        placeholders and system events like group renames and missed calls.
+      </p>
+      <p>
+        Not sure how to get the file? Follow the step-by-step
+        <a href={`${base}/how-to-export-whatsapp-chat/`}>WhatsApp export guide</a> — it takes about a
+        minute.
+      </p>
+
+      <h2>Privacy: your export never leaves your device</h2>
+      <blockquote>
+        Your uploaded conversations are processed entirely in your browser. ChatWrapped does not
+        upload your chat files to its servers — there is no ChatWrapped server that could receive
+        them.
+      </blockquote>
+      <p>
+        Parsing and analysis run in Web Workers on your device. You can watch the network tab during
+        the whole workflow: the only requests are the static files of the site itself. After you
+        close the tab, nothing remains unless you explicitly saved a recap summary. Read the full <a
+          href={`${base}/privacy/`}>privacy policy</a
+        >.
+      </p>
+
+      <h2>Built for group chats too</h2>
+      <p>
+        Family groups, class groups, friend groups — all supported. Before analyzing you can include
+        or exclude any participant, anonymize names for screenshots, rename people for presentation
+        and restrict the analysis to a date range. See <a href={`${base}/group-chat-wrapped/`}
+          >group chat wrapped</a
+        > for the group-specific workflow.
+      </p>
+
+      <h2>How the numbers stay honest</h2>
+      <p>
+        Every metric has a written definition with its exclusions and edge cases — message share,
+        burst rules for response times, conversation starts, emoji counting and more are documented
+        in
+        <a href={`${base}/how-chat-analysis-works/`}>how chat analysis works</a>. ChatWrapped
+        reports counting statistics; it never claims they measure affection, loyalty or friendship
+        quality.
+      </p>
+    </div>
+
+    <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center">
+      <p class="font-display text-lg font-bold text-white">Ready to see your WhatsApp year?</p>
+      <p class="mt-1 mb-4 text-sm text-zinc-400">No account. No upload. One file.</p>
+      <a
+        href={`${base}/app/`}
+        class="inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3 font-bold text-white"
+        >Open the analyzer →</a
+      >
+    </div>
+
+    <p class="mt-10 text-xs leading-relaxed text-zinc-600">{DISCLAIMER}</p>
+  </main>
+</PageLayout>

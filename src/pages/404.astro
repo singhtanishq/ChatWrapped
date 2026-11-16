@@ -1,0 +1,38 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="Page Not Found"
+  description="This ChatWrapped page does not exist. Head back to the analyzer or the guides."
+  path="/404"
+>
+  <main
+    id="main"
+    class="flex min-h-dvh flex-col items-center justify-center gap-6 px-6 py-20 text-center"
+  >
+    <p
+      class="font-display text-7xl font-bold text-transparent bg-gradient-to-r from-violet-300 to-orange-200 bg-clip-text"
+    >
+      404
+    </p>
+    <h1 class="font-display text-2xl font-bold text-white">This page went off-script</h1>
+    <p class="max-w-md text-sm text-zinc-400">
+      The address doesn’t match any ChatWrapped page. Try the analyzer, the guides, or load the
+      sample recap and look around.
+    </p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a
+        href={`${base}/app/`}
+        class="rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-2.5 text-sm font-bold text-white"
+        >Open the analyzer</a
+      >
+      <a
+        href={`${base}/`}
+        class="rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-semibold text-zinc-100 hover:bg-white/10"
+        >Back home</a
+      >
+    </div>
+  </main>
+</PageLayout>

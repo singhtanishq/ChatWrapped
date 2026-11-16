@@ -1,0 +1,46 @@
+---
+// Shared typography for long-form content pages (import once per page).
+---
+
+<style is:global>
+  @reference "../../styles/global.css";
+  .prose-cw {
+    @apply text-zinc-300;
+  }
+  .prose-cw h2 {
+    @apply font-display mt-10 text-2xl font-bold text-white;
+  }
+  .prose-cw h3 {
+    @apply font-display mt-8 text-lg font-bold text-white;
+  }
+  .prose-cw p {
+    @apply mt-4 leading-relaxed;
+  }
+  .prose-cw ul {
+    @apply mt-4 list-disc space-y-2 pl-6;
+  }
+  .prose-cw ol {
+    @apply mt-4 list-decimal space-y-2 pl-6;
+  }
+  .prose-cw a {
+    @apply text-fuchsia-300 hover:text-fuchsia-200;
+  }
+  .prose-cw strong {
+    @apply text-zinc-100;
+  }
+  .prose-cw table {
+    @apply mt-6 w-full border-collapse text-sm;
+  }
+  .prose-cw th {
+    @apply border-b border-white/15 px-3 py-2 text-left text-xs font-semibold tracking-wide text-zinc-400 uppercase;
+  }
+  .prose-cw td {
+    @apply border-b border-white/8 px-3 py-2.5;
+  }
+  .prose-cw blockquote {
+    @apply mt-6 rounded-2xl border border-emerald-400/25 bg-emerald-500/10 p-5 text-sm leading-relaxed text-emerald-100/90;
+  }
+  .prose-cw code {
+    @apply rounded bg-white/10 px-1.5 py-0.5 text-[13px] text-zinc-100;
+  }
+</style>

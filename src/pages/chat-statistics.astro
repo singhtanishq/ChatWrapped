@@ -1,0 +1,112 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { DISCLAIMER } from "@/lib/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="Chat Statistics — Every Message Statistic Your Chat Export Can Give You"
+  description="From message counts and activity heatmaps to response times and emoji rankings: a practical overview of the chat statistics you can compute from WhatsApp and Telegram exports — privately, in your browser."
+  path="/chat-statistics/"
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">Chat Statistics, Explained</h1>
+    <p class="mt-4 text-lg text-zinc-300">
+      A chat export is a small dataset with surprisingly rich structure. This page walks through the
+      statistics that can be computed honestly from a WhatsApp or Telegram export — and what each
+      one can and cannot tell you. ChatWrapped computes all of them locally in your browser.
+    </p>
+    <a
+      href={`${base}/app/`}
+      class="mt-8 inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-fuchsia-950/40 transition hover:scale-[1.02]"
+    >
+      Compute my chat statistics →
+    </a>
+
+    <div class="prose-cw">
+      <h2>Volume statistics</h2>
+      <p>
+        The foundation: <strong>eligible message counts</strong>, per participant and overall; <strong
+          >word counts</strong
+        >
+        (locale-aware tokenization, including stopwords); <strong>character counts</strong> (counted as
+        grapheme clusters, so emoji and non-Latin scripts count as what they look like); and <strong
+          >average message length</strong
+        >. Good tools separate system messages and attachment placeholders from these totals —
+        ChatWrapped shows both raw and eligible numbers side by side.
+      </p>
+
+      <h2>Distribution statistics</h2>
+      <p>
+        <strong>Message share</strong> per participant (their messages ÷ all eligible messages) answers
+        “who texts more”. Shares are most meaningful in 1:1 and small groups; in a 50-person group the
+        long tail tells its own story — which is why per-participant tables beat pie charts at scale.
+      </p>
+
+      <h2>Time statistics</h2>
+      <ul>
+        <li><strong>Monthly and daily trends</strong> — the conversation’s seasons and spikes.</li>
+        <li>
+          <strong>Hour × weekday heatmap</strong> — when the chat is alive; night owls show up immediately.
+        </li>
+        <li><strong>Weekday vs weekend share</strong> — work-chat vs weekend-chat energy.</li>
+        <li>
+          <strong>Active-day streaks</strong> — the longest run of consecutive days with at least one
+          message.
+        </li>
+        <li><strong>Busiest day / month</strong> — records with their full dates.</li>
+      </ul>
+      <p>
+        Timezone caveat: exports store local wall-clock time without timezone metadata. ChatWrapped
+        preserves what the sender saw on their clock and computes durations correctly; it never
+        invents a timezone.
+      </p>
+
+      <h2>Response statistics</h2>
+      <p>
+        <strong>Response time</strong> needs rules to be honest: ChatWrapped groups rapid consecutive
+        messages by the same person into a “burst”, measures a response from the burst’s <em
+          >first</em
+        > message to the first message from anyone else, and only counts responses within six hours for
+        averages. Median is preferred over mean — one overnight silence shouldn’t dominate. Full rules
+        in the
+        <a href={`${base}/how-chat-analysis-works/`}>metric guide</a>.
+      </p>
+
+      <h2>Text statistics</h2>
+      <ul>
+        <li>
+          <strong>Emoji ranking</strong> — counted as grapheme clusters so 👍🏽 and 👨‍👩‍👧 are one emoji each;
+          ©/®/™ excluded.
+        </li>
+        <li>
+          <strong>Signature words</strong> — ranked after removing stopwords, numbers, URLs and email
+          addresses.
+        </li>
+        <li>
+          <strong>Question and exclamation rates</strong> — small but surprisingly characterful numbers.
+        </li>
+      </ul>
+
+      <h2>What chat statistics cannot tell you</h2>
+      <p>
+        They are counting statistics. They cannot measure affection, loyalty, attention or
+        “toxicity”, and they say nothing about what happens between messages. Anyone claiming
+        otherwise is selling something. ChatWrapped’s stories and awards are deliberately framed as
+        playful activity facts.
+      </p>
+
+      <h2>Compute them privately</h2>
+      <p>
+        ChatWrapped calculates every statistic above from your export in your browser — no upload,
+        no account. Start from the <a href={`${base}/app/`}>analyzer</a> or read the export guides for
+        <a href={`${base}/how-to-export-whatsapp-chat/`}>WhatsApp</a> and
+        <a href={`${base}/how-to-export-telegram-chat/`}>Telegram</a>.
+      </p>
+    </div>
+
+    <p class="mt-10 text-xs leading-relaxed text-zinc-600">{DISCLAIMER}</p>
+  </main>
+</PageLayout>

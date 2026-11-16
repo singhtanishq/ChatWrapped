@@ -1,0 +1,110 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { SITE, PRIVACY_PROMISE } from "@/lib/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const lastUpdated = "November 17, 2026";
+---
+
+<PageLayout
+  title="Privacy Policy"
+  description="ChatWrapped's privacy policy: what data the app processes, what it stores, what it never sends, and what the hosting provider may record. Plain language, no dark patterns."
+  path="/privacy/"
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">Privacy Policy</h1>
+    <p class="mt-2 text-sm text-zinc-500">Last updated: {lastUpdated}</p>
+    <p class="mt-4 text-lg text-zinc-300">
+      ChatWrapped was built privacy-first: the entire application is a static site and all
+      conversation processing happens in your browser. This policy explains exactly what that means
+      — and what it doesn’t.
+    </p>
+
+    <div class="prose-cw">
+      <h2>The short version</h2>
+      <blockquote>{PRIVACY_PROMISE}</blockquote>
+      <p>
+        No account. No tracking cookies. No analytics scripts. No third-party requests during
+        processing. No error reporting service. Nothing about your messages is stored after the tab
+        closes unless you explicitly save a recap summary.
+      </p>
+
+      <h2>What the app processes, and where</h2>
+      <p>
+        When you import a chat export, the file is read with the browser’s File API and parsed in a
+        Web Worker on your device. Parsing, statistics, story generation and card rendering all run
+        locally. The app makes no network request that contains any part of your conversation — you
+        can verify this in your browser’s network inspector at any time; our own automated audits
+        check exactly this on every build.
+      </p>
+
+      <h2>What is stored on your device</h2>
+      <ul>
+        <li>
+          <strong>Session memory (default):</strong> parsed conversations live in the tab’s memory and
+          disappear when you close or reload it.
+        </li>
+        <li>
+          <strong>Saved recaps (opt-in):</strong> if you choose “Save current recap summary”, a small
+          aggregate record (message counts, date range, top emoji) is stored in your browser’s IndexedDB.
+          Message text is never included.
+        </li>
+        <li>
+          <strong>Service worker cache:</strong> the app’s own static files are cached so it works offline.
+          This is app code, not data.
+        </li>
+        <li>
+          <strong>Deletion controls:</strong> the Privacy Center can delete any saved recap, all saved
+          recaps, or the whole session at any time.
+        </li>
+      </ul>
+
+      <h2>What the hosting provider may process</h2>
+      <p>
+        ChatWrapped is hosted on GitHub Pages. Like any website, requesting the site’s static files
+        exposes standard technical information (IP address, user agent, timestamps) to the hosting
+        provider, which processes it under its own infrastructure policies. ChatWrapped adds nothing
+        to that: there is no custom analytics, no logging of content, and no third-party script that
+        could observe your visit. We do not claim that “absolutely nothing” is ever recorded by any
+        infrastructure — that would be dishonest; we claim the app itself sends nothing beyond
+        normal static-file requests.
+      </p>
+
+      <h2>What we never do</h2>
+      <ul>
+        <li>We never receive, store or transmit your chat files or message content.</li>
+        <li>We never send conversation text to AI services or any other third party.</li>
+        <li>We never put chat content in URLs.</li>
+        <li>We never use cookies, fingerprinting, session recording or advertising.</li>
+        <li>We never require an account, email address or payment.</li>
+      </ul>
+
+      <h2>Children’s privacy</h2>
+      <p>
+        ChatWrapped does not knowingly collect any personal data from anyone — there is simply no
+        data collection to regulate. It is a tool you run on your own files.
+      </p>
+
+      <h2>Open source, verifiable</h2>
+      <p>
+        The entire application is open source at <a href={SITE.repo}>{SITE.repo}</a>. The privacy
+        architecture is documented in the repository (<code
+          >docs/privacy/PRIVACY_ARCHITECTURE.md</code
+        >), and the automated browser audit that verifies “no chat content leaves the browser” is
+        part of the test suite.
+      </p>
+
+      <h2>Changes to this policy</h2>
+      <p>
+        If the privacy architecture ever changes, this policy will change with it and the “last
+        updated” date above will reflect that. We will never add data collection quietly.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions or a privacy concern? Open an issue at <a href={SITE.repo}>{SITE.repo}</a>.
+      </p>
+    </div>
+  </main>
+</PageLayout>

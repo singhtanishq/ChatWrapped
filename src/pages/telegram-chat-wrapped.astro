@@ -1,0 +1,101 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { DISCLAIMER } from "@/lib/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="Telegram Chat Wrapped — Recap Your Telegram Export as a Story"
+  description="Turn a Telegram Desktop JSON export into statistics, a personalized recap story and share cards. Free and private — processed entirely in your browser."
+  path="/telegram-chat-wrapped/"
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">Telegram Chat Wrapped</h1>
+    <p class="mt-4 text-lg text-zinc-300">
+      Telegram keeps your conversations in the cloud — but your <em>memories</em> live in the messages.
+      ChatWrapped reads Telegram Desktop’s machine-readable JSON export and builds accurate statistics,
+      a personalized story and shareable cards. Free, private and processed entirely in your browser.
+    </p>
+    <a
+      href={`${base}/app/`}
+      class="mt-8 inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-fuchsia-950/40 transition hover:scale-[1.02]"
+    >
+      Wrap my Telegram chat →
+    </a>
+
+    <div class="prose-cw">
+      <h2>What ChatWrapped understands in a Telegram export</h2>
+      <ul>
+        <li>
+          <strong>Formatted messages</strong> — links, mentions, hashtags, custom emoji and bot commands
+          are flattened into clean text for analysis.
+        </li>
+        <li>
+          <strong>Attachments</strong> — photos, videos, voice messages, audio files, stickers and polls
+          are detected as media events (captions and sticker emoji still count).
+        </li>
+        <li>
+          <strong>Service messages</strong> — joins, pins, title changes and calls are separated from
+          ordinary message totals.
+        </li>
+        <li>
+          <strong>Anonymous admins</strong> — messages sent via the “actor” field in groups are attributed
+          correctly.
+        </li>
+        <li>
+          <strong>Groups and personal chats</strong> — both export types work, including “Saved Messages”.
+        </li>
+        <li>
+          <strong>Edge cases</strong> — messages without dates, malformed entries and forwarded messages
+          produce transparent warnings, never silent omissions.
+        </li>
+      </ul>
+
+      <h2>Exporting the right file</h2>
+      <p>
+        ChatWrapped needs the <strong>machine-readable JSON</strong> output from Telegram Desktop — not
+        the HTML version. The full walkthrough is in the <a
+          href={`${base}/how-to-export-telegram-chat/`}>Telegram export guide</a
+        >. In short: Telegram Desktop → open the chat → ⋮ menu → “Export chat history” → choose the
+        format
+        <strong>Machine-readable JSON</strong> → export.
+      </p>
+
+      <h2>Privacy, verified</h2>
+      <blockquote>
+        Your uploaded conversations are processed entirely in your browser. ChatWrapped does not
+        upload your chat files to its servers.
+      </blockquote>
+      <p>
+        The JSON file is parsed in a Web Worker on your device. Nothing is transmitted — you can
+        verify it in the network tab. Nothing persists after the tab closes unless you explicitly
+        save a recap summary. Details in the
+        <a href={`${base}/privacy/`}>privacy policy</a> and <a
+          href={`${base}/how-chat-analysis-works/`}>metrics guide</a
+        >.
+      </p>
+
+      <h2>Telegram + WhatsApp in one place</h2>
+      <p>
+        Used WhatsApp with one friend and Telegram with another? Load both exports in the same
+        session and use the
+        <strong>Compare</strong> view to line up message volume, activity patterns, response times and
+        top emoji side by side — with sample sizes shown so unlike conversations aren’t compared dishonestly.
+      </p>
+    </div>
+
+    <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center">
+      <p class="font-display text-lg font-bold text-white">Have your result.json ready?</p>
+      <p class="mt-1 mb-4 text-sm text-zinc-400">Drop it into the analyzer and unwrap the story.</p>
+      <a
+        href={`${base}/app/`}
+        class="inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3 font-bold text-white"
+        >Open the analyzer →</a
+      >
+    </div>
+
+    <p class="mt-10 text-xs leading-relaxed text-zinc-600">{DISCLAIMER}</p>
+  </main>
+</PageLayout>

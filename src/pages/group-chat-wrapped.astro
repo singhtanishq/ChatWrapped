@@ -1,0 +1,107 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { DISCLAIMER } from "@/lib/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="Group Chat Wrapped — Analyze Any Group Chat Fairly"
+  description="Analyze WhatsApp and Telegram group chats: per-participant statistics, fair comparisons, anonymization and share cards. Free, private and browser-based."
+  path="/group-chat-wrapped/"
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">Group Chat Wrapped</h1>
+    <p class="mt-4 text-lg text-zinc-300">
+      Group chats are where the chaos lives — twenty people, five time zones, one emoji war.
+      ChatWrapped analyzes WhatsApp and Telegram group exports with per-participant statistics,
+      privacy controls for every member and share cards the whole group can enjoy. Free and
+      processed entirely in your browser.
+    </p>
+    <a
+      href={`${base}/app/`}
+      class="mt-8 inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-fuchsia-950/40 transition hover:scale-[1.02]"
+    >
+      Analyze a group chat →
+    </a>
+
+    <div class="prose-cw">
+      <h2>Built for many participants</h2>
+      <ul>
+        <li>
+          <strong>Per-participant dashboard</strong> — messages, share, words, emoji, media, conversation
+          starts and median reply time in one sortable table.
+        </li>
+        <li>
+          <strong>Include / exclude anyone</strong> — analyzing “just the three of us from the group”
+          takes one click per participant.
+        </li>
+        <li>
+          <strong>Anonymization</strong> — replace real names with “Participant A/B/…” before screenshotting;
+          renames are presentation-only.
+        </li>
+        <li>
+          <strong>Awards</strong> — Night Owl, Conversation Starter, Emoji Enthusiast and five more, each
+          with explicit thresholds and honest ties.
+        </li>
+        <li>
+          <strong>Transparent samples</strong> — small groups get a “small sample” note instead of overconfident
+          numbers.
+        </li>
+      </ul>
+
+      <h2>The group-specific workflow</h2>
+      <ol>
+        <li>
+          <a href={`${base}/how-to-export-whatsapp-chat/`}>Export the group</a> (WhatsApp: “Export chat
+          → without media”; Telegram: JSON export).
+        </li>
+        <li>
+          Drop the file into the <a href={`${base}/app/`}>analyzer</a> — every participant is detected
+          automatically.
+        </li>
+        <li>On the setup screen, decide who to include, who is “you”, and whether to anonymize.</li>
+        <li>
+          Optionally restrict the analysis to a date range (great for “this semester” or “the trip
+          week”).
+        </li>
+        <li>Explore the dashboard, play the story, and export cards for the group wall.</li>
+      </ol>
+
+      <h2>System events don’t pollute the numbers</h2>
+      <p>
+        Group exports are full of noise: “X created the group”, “X added Y”, encryption notices,
+        missed calls, deleted message markers. ChatWrapped classifies all of these as system events
+        and keeps them out of ordinary message totals — with a transparent count so you always know
+        what was excluded. Attachment placeholders (“&lt;Media omitted&gt;”) are counted as media
+        events, not as text.
+      </p>
+
+      <h2>Reading group statistics responsibly</h2>
+      <blockquote>
+        Message frequency is activity, not affection. A quiet member can be the most loyal one —
+        ChatWrapped shows counting statistics and never claims to measure relationships.
+      </blockquote>
+      <p>
+        That’s why comparisons show sample sizes, awards list explicit thresholds, and ties are
+        labeled as ties. See
+        <a href={`${base}/how-chat-analysis-works/`}>how chat analysis works</a> for every definition.
+      </p>
+    </div>
+
+    <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center">
+      <p class="font-display text-lg font-bold text-white">The group deserves a recap.</p>
+      <p class="mt-1 mb-4 text-sm text-zinc-400">
+        Anonymize names, pick the date range, share the cards.
+      </p>
+      <a
+        href={`${base}/app/`}
+        class="inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3 font-bold text-white"
+        >Open the analyzer →</a
+      >
+    </div>
+
+    <p class="mt-10 text-xs leading-relaxed text-zinc-600">{DISCLAIMER}</p>
+  </main>
+</PageLayout>

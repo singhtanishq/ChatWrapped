@@ -1,0 +1,133 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { DISCLAIMER } from "@/lib/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="How to Export a WhatsApp Chat (Android & iPhone) — Step-by-Step Guide"
+  description="Step-by-step instructions to export a WhatsApp chat as a TXT file on Android and iPhone, with tips for groups, media options and troubleshooting. Updated for the current WhatsApp UI."
+  path="/how-to-export-whatsapp-chat/"
+  structuredData={[
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "How to export a WhatsApp chat as TXT",
+      step: [
+        {
+          "@type": "HowToStep",
+          name: "Open the chat",
+          text: "Open WhatsApp and open the chat you want to export (individual or group).",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Open the chat menu",
+          text: "Android: tap ⋮ (three dots) → More → Export chat. iPhone: tap the contact or group name at the top, scroll down, tap Export Chat.",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Choose Without Media",
+          text: "Select “Without Media” to get a plain TXT file that ChatWrapped parses.",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Save or share the file",
+          text: "Save the .txt export to your files, then drop it into ChatWrapped.",
+        },
+      ],
+    },
+  ]}
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">How to Export a WhatsApp Chat</h1>
+    <p class="mt-4 text-lg text-zinc-300">
+      WhatsApp can export any conversation — individual or group — as a plain text file. The export
+      takes under a minute and is all ChatWrapped needs to build your recap. Follow the steps for
+      your platform.
+    </p>
+
+    <div class="prose-cw">
+      <h2>Android</h2>
+      <ol>
+        <li>Open <strong>WhatsApp</strong> and open the chat you want to export.</li>
+        <li>Tap the <strong>⋮ menu</strong> (top-right corner).</li>
+        <li>Choose <strong>More → Export chat</strong>.</li>
+        <li>
+          Choose <strong>Without media</strong> — this produces the plain <code>.txt</code> file ChatWrapped
+          parses fastest. “Include media” produces a ZIP of images plus the same TXT.
+        </li>
+        <li>
+          Save or share the file to your Downloads, Google Drive, or directly to your computer.
+        </li>
+      </ol>
+
+      <h2>iPhone</h2>
+      <ol>
+        <li>Open <strong>WhatsApp</strong> and open the chat.</li>
+        <li>Tap the <strong>contact or group name</strong> at the top of the conversation.</li>
+        <li>Scroll down and tap <strong>Export Chat</strong>.</li>
+        <li>Choose <strong>Without Media</strong>.</li>
+        <li>
+          Save the file with the iOS share sheet — “Save to Files” is the easiest way to find it
+          later.
+        </li>
+      </ol>
+
+      <h2>Tips & answers to common questions</h2>
+      <h3>Which option should I pick — with or without media?</h3>
+      <p>
+        For ChatWrapped, pick <strong>Without Media</strong>. Media ZIPs can be hundreds of
+        megabytes and the images don’t participate in text analytics anyway (attachment placeholders
+        are counted as media events either way).
+      </p>
+      <h3>Does the export include deleted messages?</h3>
+      <p>
+        Deleted messages appear only as markers like “This message was deleted”. ChatWrapped
+        classifies them as system events and excludes them from text statistics — the content is
+        gone from WhatsApp itself.
+      </p>
+      <h3>Where is my export on the phone?</h3>
+      <p>
+        Android usually saves to <code>Download/WhatsApp</code> or opens a share dialog; iPhone shows
+        the share sheet immediately. You can also email the file to yourself and continue on a computer.
+      </p>
+      <h3>Can I export several chats?</h3>
+      <p>
+        Yes — repeat the steps per chat. ChatWrapped can hold multiple conversations in one session
+        and
+        <a href={`${base}/app/#/compare`}>compare them side by side</a>.
+      </p>
+      <h3>The export looks garbled in a text editor</h3>
+      <p>
+        WhatsApp TXT exports contain Unicode directionality marks and emoji — that’s normal. Don’t
+        edit the file; drop it into the analyzer as-is. If dates look wrong after import, use the
+        DD/MM ↔ MM/DD toggle on the import result screen.
+      </p>
+      <h3>Is exporting allowed? Is it private?</h3>
+      <p>
+        Exporting your own chats is a standard WhatsApp feature. The file stays on your device
+        unless you choose to share it — and if you bring it to ChatWrapped, it is parsed locally in
+        your browser and never uploaded.
+      </p>
+    </div>
+
+    <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center">
+      <p class="font-display text-lg font-bold text-white">Got the .txt file?</p>
+      <p class="mt-1 mb-4 text-sm text-zinc-400">Drop it into ChatWrapped and unwrap the story.</p>
+      <a
+        href={`${base}/app/`}
+        class="inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3 font-bold text-white"
+        >Open the analyzer →</a
+      >
+    </div>
+
+    <p class="mt-6 text-xs leading-relaxed text-zinc-600">
+      WhatsApp’s interface changes occasionally — if a menu name doesn’t match exactly, look for
+      “Export chat” in the chat or group menu. This guide describes WhatsApp’s documented export
+      feature and is independent of WhatsApp.
+    </p>
+    <p class="mt-4 text-xs leading-relaxed text-zinc-600">{DISCLAIMER}</p>
+  </main>
+</PageLayout>

@@ -1,0 +1,108 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { DISCLAIMER, PRIVACY_PROMISE } from "@/lib/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="How Chat Analysis Works — ChatWrapped’s Metric Definitions"
+  description="How ChatWrapped turns chat exports into statistics: the normalized message model, response-time burst rules, conversation starts, emoji counting and timezone handling — all documented."
+  path="/how-chat-analysis-works/"
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">How Chat Analysis Works</h1>
+    <p class="mt-4 text-lg text-zinc-300">
+      Most chat tools show numbers without explaining where they come from. ChatWrapped does the
+      opposite: every metric has a written definition, explicit exclusions and tested edge cases.
+      This page is the short version; the complete reference lives in the repository at
+      <code>docs/analytics/METRIC_DEFINITIONS.md</code>.
+    </p>
+
+    <div class="prose-cw">
+      <h2>Step 1 — Parsing into a normalized model</h2>
+      <p>
+        Both supported formats (WhatsApp TXT, Telegram JSON) are parsed into one internal message
+        model: participant, timestamp, text, type (text / media / system) and attachment flag. This
+        is why the same statistics and stories work identically for both platforms. Parsing handles
+        multiline messages, colons in text, Unicode directionality marks, attachment placeholders,
+        deletion markers and system events.
+      </p>
+
+      <h2>Step 2 — The eligible pool</h2>
+      <p>
+        Statistics are computed over the <strong>eligible pool</strong>: non-system messages from
+        included participants, inside the selected date range. You always see both the raw parsed
+        count and the eligible count, so exclusions are never hidden. Group noise (joins, pins,
+        calls, “this message was deleted”) never pollutes the numbers.
+      </p>
+
+      <h2>Step 3 — Timestamps without timezone lies</h2>
+      <p>
+        Exports store <strong>local wall-clock time with no timezone metadata</strong>. ChatWrapped
+        interprets the wall clock as UTC — a constant offset — which keeps every <em>duration</em> exact
+        (response times, gaps, streaks) and keeps every <em>bucket</em> faithful to what the sender saw
+        on their clock. No timezone is ever invented. WhatsApp’s ambiguous DD/MM vs MM/DD formats are
+        resolved from unambiguous evidence and flagged for you to confirm when the data can’t decide.
+      </p>
+
+      <h2>Step 4 — Response times, done honestly</h2>
+      <p>
+        Naive tools treat every message pair as a reply, which collapses when people double-text.
+        ChatWrapped’s rules:
+      </p>
+      <ul>
+        <li>
+          <strong>Burst:</strong> consecutive messages by the same participant within 120 seconds form
+          one burst.
+        </li>
+        <li>
+          <strong>Response event:</strong> the first message from a different participant after a burst,
+          measured from the burst’s first message.
+        </li>
+        <li>
+          <strong>Validity:</strong> only responses within 6 hours enter averages and medians; longer
+          silences are tracked separately as the longest gap.
+        </li>
+      </ul>
+      <p>Boundaries are unit-tested (exactly 6 hours counts; 6 hours + 1 ms does not).</p>
+
+      <h2>Step 5 — Conversation starts</h2>
+      <p>
+        A conversation “starts” after a lull of at least <strong>4 hours</strong> since the previous eligible
+        message — plus the very first message of the selection. The starter is credited. This is why “Conversation
+        Starter” awards need at least three starts.
+      </p>
+
+      <h2>Step 6 — Emoji and words</h2>
+      <p>
+        Emoji are counted as <strong>grapheme clusters</strong> via <code>Intl.Segmenter</code>:
+        skin tones, ZWJ families, flags and keycaps are one emoji each — never misleading fragments.
+        Words are segmented per locale, lowercased and filtered (stopwords, numbers, URLs, emails)
+        for signature-word rankings.
+      </p>
+
+      <h2>Step 7 — Stories, records and awards</h2>
+      <p>
+        Slides are generated adaptively from the computed analytics — a slide for a missing metric
+        is skipped, never fabricated. Records require sufficient data; awards have explicit
+        thresholds (published in the metric definitions) and ties are reported as ties. Small
+        samples produce a visible “small sample” note.
+      </p>
+
+      <h2>What the analysis refuses to do</h2>
+      <blockquote>
+        {PRIVACY_PROMISE} And no statistic implies anything about love, loyalty, personality or relationship
+        quality — ChatWrapped counts events; people make meanings.
+      </blockquote>
+      <p>
+        Curious how this plays out on real data? Open the <a href={`${base}/app/`}>analyzer</a> — the
+        sample data is synthetic and clearly labeled, so you can explore every screen without exporting
+        anything.
+      </p>
+    </div>
+
+    <p class="mt-10 text-xs leading-relaxed text-zinc-600">{DISCLAIMER}</p>
+  </main>
+</PageLayout>

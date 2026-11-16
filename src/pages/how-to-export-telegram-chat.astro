@@ -1,0 +1,148 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { DISCLAIMER } from "@/lib/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="How to Export a Telegram Chat (Desktop JSON) — Step-by-Step Guide"
+  description="Step-by-step instructions to export a Telegram chat with Telegram Desktop in machine-readable JSON format for ChatWrapped, including options, groups and troubleshooting."
+  path="/how-to-export-telegram-chat/"
+  structuredData={[
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "How to export a Telegram chat as JSON",
+      step: [
+        {
+          "@type": "HowToStep",
+          name: "Install Telegram Desktop",
+          text: "Exports are a Telegram Desktop feature — install it on Windows, macOS or Linux and log in.",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Open the chat",
+          text: "Open the conversation or group you want to export.",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Open Export chat history",
+          text: "Click the ⋮ (three dots) in the top-right corner and choose “Export chat history”.",
+        },
+        {
+          "@type": "HowToStep",
+          name: "Choose Machine-readable JSON",
+          text: "In the export dialog pick the “Machine-readable JSON” format (not HTML), then Export.",
+        },
+      ],
+    },
+  ]}
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">How to Export a Telegram Chat</h1>
+    <p class="mt-4 text-lg text-zinc-300">
+      Telegram’s export feature lives in <strong>Telegram Desktop</strong> — the free desktop app for
+      Windows, macOS and Linux. Exporting produces a JSON file with the full conversation, which ChatWrapped
+      parses for your recap.
+    </p>
+
+    <div class="prose-cw">
+      <h2>Step by step</h2>
+      <ol>
+        <li>
+          <strong>Install Telegram Desktop</strong> from <code>desktop.telegram.org</code> or your package
+          manager, and log in. (The mobile apps don’t offer JSON exports.)
+        </li>
+        <li>Open the <strong>conversation or group</strong> you want to export.</li>
+        <li>
+          Click the <strong>⋮ menu</strong> in the top-right corner and choose <strong
+            >Export chat history</strong
+          >.
+        </li>
+        <li>
+          In the export dialog, select the <strong>Machine-readable JSON</strong> format. You can leave
+          media unchecked for a small, fast file — text, stickers and attachments are recorded in the
+          JSON either way.
+        </li>
+        <li>
+          Click <strong>Export</strong>. Telegram writes a <code>result.json</code> (in a folder if you
+          included media).
+        </li>
+        <li>
+          Drop the <code>result.json</code> into the <a href={`${base}/app/`}
+            >ChatWrapped analyzer</a
+          >.
+        </li>
+      </ol>
+
+      <h2>JSON or HTML?</h2>
+      <p>
+        Telegram offers two export formats. <strong>HTML</strong> is for human reading; <strong
+          >JSON</strong
+        > is for software. ChatWrapped needs the JSON version — if you accidentally exported HTML, the
+        analyzer will tell you immediately and you can re-export. Exporting again takes seconds since
+        Telegram remembers your options.
+      </p>
+
+      <h2>What’s inside result.json</h2>
+      <ul>
+        <li>Chat <strong>name and type</strong> (personal chat, private group, supergroup).</li>
+        <li>
+          Every message with <strong>wall-clock date</strong>, sender, text (as formatted parts) and
+          attachment references.
+        </li>
+        <li>
+          <strong>Service messages</strong> — joins, pins, calls — which ChatWrapped keeps out of message
+          totals.
+        </li>
+        <li><strong>Anonymous admin</strong> messages via the “actor” field in groups.</li>
+      </ul>
+
+      <h2>Troubleshooting</h2>
+      <h3>“Export chat history” is missing</h3>
+      <p>
+        Update Telegram Desktop — the feature has been in stable releases for years, but very old
+        builds hide it.
+      </p>
+      <h3>The file is huge</h3>
+      <p>
+        Media files dominate export size. Re-export with media unchecked; ChatWrapped needs only the
+        JSON. Files up to 200&nbsp;MB are accepted, and a 10&nbsp;MB JSON parses in a couple of
+        seconds.
+      </p>
+      <h3>Secret chats</h3>
+      <p>
+        Telegram’s cloud chats export normally. <strong>Secret chats</strong> are device-bound and are
+        not part of the desktop export — that’s by design of Telegram’s security model.
+      </p>
+      <h3>Where did the file go?</h3>
+      <p>
+        Telegram asks for a destination folder before exporting — the default is your Downloads
+        folder. The JSON is named <code>result.json</code>; if you included media it sits next to a <code
+          >photos/</code
+        > or
+        <code>files/</code> folder you can ignore.
+      </p>
+    </div>
+
+    <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center">
+      <p class="font-display text-lg font-bold text-white">result.json in hand?</p>
+      <p class="mt-1 mb-4 text-sm text-zinc-400">
+        Unwrap the conversation — locally and privately.
+      </p>
+      <a
+        href={`${base}/app/`}
+        class="inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3 font-bold text-white"
+        >Open the analyzer →</a
+      >
+    </div>
+
+    <p class="mt-6 text-xs leading-relaxed text-zinc-600">
+      This guide describes Telegram Desktop’s documented export feature and is independent of
+      Telegram.
+    </p>
+    <p class="mt-4 text-xs leading-relaxed text-zinc-600">{DISCLAIMER}</p>
+  </main>
+</PageLayout>

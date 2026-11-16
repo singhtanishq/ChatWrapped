@@ -1,0 +1,104 @@
+---
+import PageLayout from "@/layouts/PageLayout.astro";
+import Prose from "@/components/astro/Prose.astro";
+import { SITE, DISCLAIMER } from "@/lib/site";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<PageLayout
+  title="About ChatWrapped"
+  description="Who builds ChatWrapped, why it exists, how it stays free and private, and where it is going next. An independent open-source conversation analytics project."
+  path="/about/"
+>
+  <Prose />
+  <main id="main" class="mx-auto max-w-3xl px-6 py-12">
+    <h1 class="font-display text-4xl font-bold text-white">About ChatWrapped</h1>
+    <p class="mt-4 text-lg text-zinc-300">
+      ChatWrapped started with a simple observation: our most meaningful conversations happen in
+      chat apps, and then they scroll away. “Wrapped”-style recaps proved that people love seeing
+      their year in data — but your chats deserve the same treatment without handing a stranger’s
+      server your most personal files.
+    </p>
+
+    <div class="prose-cw">
+      <h2>What it is</h2>
+      <p>
+        A free, open-source, browser-based tool that turns WhatsApp and Telegram exports into
+        accurate statistics, personalized story recaps and social-ready share cards. It runs
+        entirely as a static site — there is no backend, no database and no account system, which is
+        also why it can never lose your data: it never has it.
+      </p>
+
+      <h2>Principles</h2>
+      <ul>
+        <li>
+          <strong>Local by architecture, not by promise.</strong> Nothing to upload to, by design — verifiable
+          in the network tab and by automated tests.
+        </li>
+        <li>
+          <strong>Honest numbers.</strong> Every metric is documented with definitions, exclusions and
+          edge cases. Ties are labeled; missing data is admitted.
+        </li>
+        <li>
+          <strong>Fun without manipulation.</strong> Stories and awards are playful activity facts — never
+          fake streak-pressure or psychological claims.
+        </li>
+        <li>
+          <strong>Free forever for the core.</strong> Static hosting on GitHub Pages costs nothing; there
+          are no paid tiers to gate.
+        </li>
+      </ul>
+
+      <h2>Technology</h2>
+      <p>
+        Astro + React with TypeScript, Tailwind CSS, hand-rolled SVG charts, a Canvas card renderer,
+        Web Workers for parsing and analytics, JSZip for recap exports, Vitest and Playwright for
+        the test suite — deployed as static files. The full architecture is documented in the
+        <a href={SITE.repo}>repository</a>.
+      </p>
+
+      <h2>Known limitations</h2>
+      <ul>
+        <li>
+          Telegram HTML exports and WhatsApp media ZIPs are not parsed yet (JSON and TXT are).
+        </li>
+        <li>
+          Timezone information is absent from exports, so day/hour buckets reflect the exporter’s
+          clock.
+        </li>
+        <li>Story slides adapt to your data — small chats simply produce fewer slides.</li>
+        <li>Very large exports (hundreds of MB) are beyond the tested limits.</li>
+      </ul>
+
+      <h2>Roadmap ideas</h2>
+      <ul>
+        <li>More platforms (Instagram, Signal, iMessage via exports) as format testing allows.</li>
+        <li>Telegram HTML export support.</li>
+        <li>Additional card layouts and theme refinements.</li>
+        <li>More languages for stopwords and UI.</li>
+      </ul>
+
+      <h2>Contributing</h2>
+      <p>
+        Bug reports, parser fixtures and theme ideas are welcome at <a href={SITE.repo}
+          >{SITE.repo}</a
+        > — see CONTRIBUTING.md in the repository. Please never attach real chat exports to issues; fixtures
+        are synthetic.
+      </p>
+    </div>
+
+    <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center">
+      <p class="font-display text-lg font-bold text-white">Try it in 30 seconds</p>
+      <p class="mt-1 mb-4 text-sm text-zinc-400">
+        No export needed — the sample data is one click away.
+      </p>
+      <a
+        href={`${base}/app/`}
+        class="inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3 font-bold text-white"
+        >Open the analyzer →</a
+      >
+    </div>
+
+    <p class="mt-10 text-xs leading-relaxed text-zinc-600">{DISCLAIMER}</p>
+  </main>
+</PageLayout>
