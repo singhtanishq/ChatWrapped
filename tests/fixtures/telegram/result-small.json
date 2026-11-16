@@ -1,0 +1,86 @@
+{
+  "name": "Elena",
+  "type": "personal_chat",
+  "id": 98765432,
+  "messages": [
+    {
+      "id": 1,
+      "type": "message",
+      "date": "2024-05-10T09:00:00",
+      "date_unixtime": "1715322000",
+      "from": "Elena",
+      "from_id": "user111222333",
+      "text": "Are we still meeting for coffee tomorrow? ☕"
+    },
+    {
+      "id": 2,
+      "type": "message",
+      "date": "2024-05-10T09:04:00",
+      "date_unixtime": "1715322240",
+      "from": "Sam",
+      "from_id": "user444555666",
+      "text": "Yes! Same place as last time, at ten."
+    },
+    {
+      "id": 3,
+      "type": "service",
+      "date": "2024-05-10T09:05:00",
+      "date_unixtime": "1715322300",
+      "actor": "Elena",
+      "actor_id": "user111222333",
+      "action": "changed the chat photo"
+    },
+    {
+      "id": 4,
+      "type": "message",
+      "date": "2024-05-10T10:10:00",
+      "date_unixtime": "1715326200",
+      "from": "Elena",
+      "from_id": "user111222333",
+      "text": [
+        { "type": "plain", "text": "Look at this " },
+        { "type": "link", "href": "https://example.com/menu", "text": "menu" },
+        { "type": "plain", "text": " I found the other day 😄" }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "message",
+      "date": "2024-05-10T10:12:30",
+      "date_unixtime": "1715326350",
+      "from": "Sam",
+      "from_id": "user444555666",
+      "photo": "photos/photo_1@11-05-2024_10-12-30.jpg",
+      "text": "I had this one last week, the pancakes are unreal."
+    },
+    {
+      "id": 6,
+      "type": "message",
+      "date": "2024-05-11T14:00:00",
+      "date_unixtime": "1715426400",
+      "from": "Elena",
+      "from_id": "user111222333",
+      "sticker_emoji": "🐼",
+      "text": ""
+    },
+    {
+      "id": 7,
+      "type": "message",
+      "date": "2024-05-11T14:01:00",
+      "date_unixtime": "1715426460",
+      "from": "Sam",
+      "from_id": "user444555666",
+      "text": "Ha, perfect reaction. Coffee it is, ten o'clock, see you!"
+    },
+    {
+      "id": 8,
+      "type": "message",
+      "date": "2024-05-11T14:02:00",
+      "date_unixtime": "1715426520",
+      "from": "Elena",
+      "from_id": "user111222333",
+      "forwarded_from": "Nina",
+      "text": "Nina said this café has the best espresso in town."
+    }
+  ]
+}

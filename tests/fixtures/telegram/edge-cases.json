@@ -1,0 +1,89 @@
+{
+  "name": "Quirks Chat",
+  "type": "personal_chat",
+  "id": 555000111,
+  "messages": [
+    {
+      "id": 1,
+      "type": "message",
+      "date": "2024-03-03T10:00:00",
+      "date_unixtime": "1709460000",
+      "from": "Iris",
+      "from_id": "user111111111",
+      "text": "Plain text message with no special parts."
+    },
+    {
+      "id": 2,
+      "type": "message",
+      "date": "2024-03-03T10:01:00",
+      "date_unixtime": "1709460060",
+      "from": "Noah",
+      "from_id": "user222222222",
+      "text": [
+        { "type": "plain", "text": "Formatted " },
+        { "type": "mention", "text": "@Iris" },
+        { "type": "plain", "text": " with a " },
+        { "type": "hashtag", "text": "#victory" },
+        { "type": "plain", "text": " and " },
+        { "type": "custom_emoji", "document_id": "123", "text": "😎", "emoji": "😎" },
+        { "type": "plain", "text": " plus a " },
+        { "type": "bot_command", "text": "/done" }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "message",
+      "from": "Iris",
+      "from_id": "user111111111",
+      "text": "This entry has no date at all."
+    },
+    {
+      "id": 4,
+      "type": "message",
+      "date": "2024-03-03T10:05:00",
+      "date_unixtime": "1709460300",
+      "from_id": "user222222222",
+      "actor": "Noah",
+      "text": "Sent by an anonymous admin (no from, only actor)."
+    },
+    {
+      "id": 5,
+      "type": "message",
+      "date": "2024-03-03T10:06:00",
+      "date_unixtime": "1709460360",
+      "from": "Iris",
+      "from_id": "user111111111",
+      "text": "Unicode edge: 汉字 and देवनागरी and 한글 mixed with ASCII. ✓"
+    },
+    {
+      "id": 6,
+      "type": "service",
+      "date": "2024-03-03T10:07:00",
+      "date_unixtime": "1709460420",
+      "actor": "Iris",
+      "actor_id": "user111111111",
+      "action": "joined the group via invite link"
+    },
+    {
+      "id": 7,
+      "type": "message",
+      "date": "2024-03-03T10:08:00",
+      "date_unixtime": "1709460480",
+      "from": "Noah",
+      "from_id": "user222222222",
+      "poll": { "question": "Lunch place?", "answers": [] },
+      "text": ""
+    },
+    {
+      "id": 8,
+      "type": "message",
+      "date": "2024-03-03T10:09:00",
+      "date_unixtime": "1709460540",
+      "from": "Iris",
+      "from_id": "user111111111",
+      "edited_date": "2024-03-03T10:10:00",
+      "text": "This message was edited once."
+    },
+    "not-an-object-entry"
+  ]
+}

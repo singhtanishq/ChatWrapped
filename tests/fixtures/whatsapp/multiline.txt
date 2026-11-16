@@ -1,0 +1,11 @@
+10/03/2024, 18:20 - Alice: Did you read that long article I sent yesterday?
+10/03/2024, 18:22 - Bob: Reading it now. This paragraph is wild:
+"The researchers found that message length did not predict response time at all, which surprised the entire team."
+10/03/2024, 18:22 - Bob: How is that even possible?
+10/03/2024, 18:24 - Alice: Right?? I had to read it twice.
+10/03/2024, 18:25 - Bob: Also the section about typos:
+"Participants with more typos replied faster on average, but their messages were shorter."
+10/03/2024, 18:26 - Bob: Now that I believe.
+10/03/2024, 20:40 - Alice: By the way, dinner on Friday?
+10/03/2024, 20:41 - Bob: I'm in. Ramen place again?
+10/03/2024, 20:41 - Alice: Always. 🍜

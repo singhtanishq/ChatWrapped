@@ -1,0 +1,9 @@
+12/25/2023, 10:00 - Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or hear them.
+12/25/2023, 10:05 - Alice: Hey Bob! Are you coming to the picnic on Saturday? 🧺
+12/25/2023, 10:07 - Bob: Yes! I'll bring the sandwiches and a big blanket.
+12/25/2023, 10:09 - Alice: Perfect. The weather app says 24 degrees and sunny.
+12/25/2023, 10:09 - Alice: <Media omitted>
+12/25/2023, 10:11 - Bob: Beautiful! Which park is that?
+12/26/2023, 09:15 - Bob: Good morning! The picnic was amazing, thanks for organizing 🎉
+12/26/2023, 09:18 - Alice: Thanks! It was so much fun.
+12/26/2023, 09:19 - Alice: See you at work tomorrow! 👋

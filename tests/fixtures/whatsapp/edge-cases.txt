@@ -1,0 +1,17 @@
+WhatsApp chat with Carol — 3 April 2024
+This line appears before any timestamp and should be skipped gracefully.
+4/4/2024, 12:00 AM - Carol: Midnight snack run? The clock just struck twelve.
+4/4/2024, 12:30 PM - Dan: Sure, but I already ate lunch. 🥪
+4/4/2024, 01:15 PM - Carol: Then come for coffee instead.
+‎4/4/2024, 01:16 PM - Dan: <Media omitted>
+4/4/2024, 01:18 PM - Dan: That's the menu photo
+5/4/2024, 09:00 - Carol: This message was deleted.
+5/4/2024, 09:05 - Dan: You deleted this message. Wait, what were you typing?
+5/4/2024, 09:06 - Carol: Oops, wrong chat!
+5/4/2024, 09:10 - Carol: Missed voice call
+6/4/2024, 22:30 - Dan: Sorry I missed your call yesterday, I was asleep.
+6/4/2024, 22:31 - Carol: No worries, it was about the weekend plan.
+6/4/2024, 22:31 - Carol: Are we still on for Sunday?
+6/4/2024, 22:35 - Dan: Yes! Picking you up at nine.
+4/4/2024, 13:20 - Carol: This timestamp is way out of order on purpose (header/footer glitch).
+6/4/2024, 22:36 - Carol: 🚗💨

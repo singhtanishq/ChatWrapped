@@ -1,0 +1,134 @@
+{
+  "name": "Dribble Club",
+  "type": "private_supergroup",
+  "id": 12345678,
+  "messages": [
+    {
+      "id": 100,
+      "type": "service",
+      "date": "2024-06-01T18:00:00",
+      "date_unixtime": "1717261200",
+      "actor": "Priya",
+      "actor_id": "user222333444",
+      "action": "created the group"
+    },
+    {
+      "id": 101,
+      "type": "message",
+      "date": "2024-06-01T18:01:00",
+      "date_unixtime": "1717261260",
+      "from": "Priya",
+      "from_id": "user222333444",
+      "text": "Welcome! This group is for Sunday basketball runs. 🏀"
+    },
+    {
+      "id": 102,
+      "type": "message",
+      "date": "2024-06-01T18:03:00",
+      "date_unixtime": "1717261380",
+      "from": "Marco",
+      "from_id": "user333444555",
+      "text": "I'm in, been wanting to play again for ages."
+    },
+    {
+      "id": 103,
+      "type": "message",
+      "date": "2024-06-01T18:04:00",
+      "date_unixtime": "1717261440",
+      "from": "Jules",
+      "from_id": "user444555666",
+      "text": "Same! Which court do we use?"
+    },
+    {
+      "id": 104,
+      "type": "message",
+      "date": "2024-06-01T18:05:00",
+      "date_unixtime": "1717261500",
+      "from": "Priya",
+      "from_id": "user222333444",
+      "text": "The riverside courts, they just resurfaced them."
+    },
+    {
+      "id": 105,
+      "type": "message",
+      "date": "2024-06-02T09:00:00",
+      "date_unixtime": "1717309200",
+      "from": "Marco",
+      "from_id": "user333444555",
+      "voice_message": "files/voice_1.ogg",
+      "text": ""
+    },
+    {
+      "id": 106,
+      "type": "message",
+      "date": "2024-06-02T09:02:00",
+      "date_unixtime": "1717309320",
+      "from": "Jules",
+      "from_id": "user444555666",
+      "text": "Marco speaks in voice notes exclusively 😂"
+    },
+    {
+      "id": 107,
+      "type": "service",
+      "date": "2024-06-02T09:03:00",
+      "date_unixtime": "1717309380",
+      "actor": "Priya",
+      "actor_id": "user222333444",
+      "action": "pinned the message \"The riverside courts, they just resurfaced them.\""
+    },
+    {
+      "id": 108,
+      "type": "message",
+      "date": "2024-06-02T19:30:00",
+      "date_unixtime": "1717349400",
+      "from": "Priya",
+      "from_id": "user222333444",
+      "text": "Reminder: first run tomorrow at nine, bring water!"
+    },
+    {
+      "id": 109,
+      "type": "message",
+      "date": "2024-06-02T19:31:00",
+      "date_unixtime": "1717349460",
+      "from": "Marco",
+      "from_id": "user333444555",
+      "text": "Got it. Anyone needs a ride, ping me."
+    },
+    {
+      "id": 110,
+      "type": "message",
+      "date": "2024-06-03T08:45:00",
+      "date_unixtime": "1717394700",
+      "from": "Jules",
+      "from_id": "user444555666",
+      "text": "On my way! 🚴"
+    },
+    {
+      "id": 111,
+      "type": "message",
+      "date": "2024-06-03T12:00:00",
+      "date_unixtime": "1717406400",
+      "from": "Priya",
+      "from_id": "user222333444",
+      "text": "Great session today. Same time next week?"
+    },
+    {
+      "id": 112,
+      "type": "message",
+      "date": "2024-06-03T12:01:00",
+      "date_unixtime": "1717406460",
+      "from": "Marco",
+      "from_id": "user333444555",
+      "text": "Absolutely."
+    },
+    {
+      "id": 113,
+      "type": "message",
+      "date": "2024-06-03T12:01:30",
+      "date_unixtime": "1717406490",
+      "from": "Jules",
+      "from_id": "user444555666",
+      "text": "Count me in. Same court?"
+    }
+  ]
+}
