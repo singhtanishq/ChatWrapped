@@ -39,6 +39,12 @@ jobs:
       - name: Validate built site (routes, assets, links)
         run: pnpm validate:links
 
+      # Enables GitHub Pages (build_type=workflow) on first deployment using
+      # the workflow's own token — no repository settings change needed.
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
