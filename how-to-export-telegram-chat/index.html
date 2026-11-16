@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en" class="min-h-full"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How to Export a Telegram Chat (Desktop JSON) — Step-by-Step Guide · ChatWrapped</title><meta name="description" content="Step-by-step instructions to export a Telegram chat with Telegram Desktop in machine-readable JSON format for ChatWrapped, including options, groups and troubleshooting."><link rel="canonical" href="https://singhtanishq.github.io/ChatWrapped/how-to-export-telegram-chat/"><link rel="icon" type="image/svg+xml" href="/ChatWrapped/favicon.svg"><link rel="manifest" href="/ChatWrapped/manifest.webmanifest"><meta name="theme-color" content="#0b0910"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="ChatWrapped"><meta property="og:title" content="How to Export a Telegram Chat (Desktop JSON) — Step-by-Step Guide · ChatWrapped"><meta property="og:description" content="Step-by-step instructions to export a Telegram chat with Telegram Desktop in machine-readable JSON format for ChatWrapped, including options, groups and troubleshooting."><meta property="og:url" content="https://singhtanishq.github.io/ChatWrapped/how-to-export-telegram-chat/"><meta property="og:image" content="https://singhtanishq.github.io/ChatWrapped/images/og-default.png"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How to Export a Telegram Chat (Desktop JSON) — Step-by-Step Guide · ChatWrapped"><meta name="twitter:description" content="Step-by-step instructions to export a Telegram chat with Telegram Desktop in machine-readable JSON format for ChatWrapped, including options, groups and troubleshooting."><meta name="twitter:image" content="https://singhtanishq.github.io/ChatWrapped/images/og-default.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to export a Telegram chat as JSON","step":[{"@type":"HowToStep","name":"Install Telegram Desktop","text":"Exports are a Telegram Desktop feature — install it on Windows, macOS or Linux and log in."},{"@type":"HowToStep","name":"Open the chat","text":"Open the conversation or group you want to export."},{"@type":"HowToStep","name":"Open Export chat history","text":"Click the ⋮ (three dots) in the top-right corner and choose “Export chat history”."},{"@type":"HowToStep","name":"Choose Machine-readable JSON","text":"In the export dialog pick the “Machine-readable JSON” format (not HTML), then Export."}]}</script><link rel="stylesheet" href="/ChatWrapped/_astro/PageLayout.BV34ix_l.css"><link rel="stylesheet" href="/ChatWrapped/_astro/Prose.BNHUmcxk.css"></head> <body class="min-h-dvh bg-[#0b0910] text-zinc-100 antialiased"> <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-violet-600 focus:px-4 focus:py-2 focus:text-white">
+Skip to content
+</a> <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0b0910]/85 backdrop-blur"> <div class="mx-auto flex max-w-6xl items-center gap-4 px-6 py-3.5"> <a href="/ChatWrapped/" class="flex items-center gap-2 font-display text-lg font-bold text-white"> <svg viewBox="0 0 64 64" class="size-7 shrink-0" aria-hidden="true"> <defs> <linearGradient id="nav-g" x1="0" y1="0" x2="1" y2="1"> <stop offset="0" stop-color="#7c3aed"></stop> <stop offset="0.55" stop-color="#d946ef"></stop> <stop offset="1" stop-color="#fb923c"></stop> </linearGradient> </defs> <path d="M32 6C17.1 6 5 16.6 5 29.7c0 7.4 3.9 14 10 18.4L13 58l10.6-4.6c2.6.7 5.5 1.1 8.4 1.1 14.9 0 27-10.6 27-23.8S46.9 6 32 6z" fill="url(#nav-g)"></path> <path d="M20.5 30.2 25 34.5l10.8-10.9" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"></path> </svg>
+ChatWrapped
+</a> <nav aria-label="Main" class="ml-auto hidden items-center gap-1 sm:flex"> <a class="rounded-lg px-3 py-2 text-sm font-medium transition-colors text-zinc-400 hover:text-white" href="/ChatWrapped/how-to-export-whatsapp-chat/"> Export guides </a><a class="rounded-lg px-3 py-2 text-sm font-medium transition-colors text-zinc-400 hover:text-white" href="/ChatWrapped/how-chat-analysis-works/"> How it works </a><a class="rounded-lg px-3 py-2 text-sm font-medium transition-colors text-zinc-400 hover:text-white" href="/ChatWrapped/privacy/"> Privacy </a><a class="rounded-lg px-3 py-2 text-sm font-medium transition-colors text-zinc-400 hover:text-white" href="/ChatWrapped/about/"> About </a> </nav> <a href="/ChatWrapped/app/" class="ml-auto rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-fuchsia-950/40 transition hover:from-violet-500 hover:to-fuchsia-500 sm:ml-2">Open analyzer</a> </div> </header>   <main id="main" class="mx-auto max-w-3xl px-6 py-12"> <h1 class="font-display text-4xl font-bold text-white">How to Export a Telegram Chat</h1> <p class="mt-4 text-lg text-zinc-300">
+Telegram’s export feature lives in <strong>Telegram Desktop</strong> — the free desktop app for
+      Windows, macOS and Linux. Exporting produces a JSON file with the full conversation, which ChatWrapped
+      parses for your recap.
+</p> <div class="prose-cw"> <h2>Step by step</h2> <ol> <li> <strong>Install Telegram Desktop</strong> from <code>desktop.telegram.org</code> or your package
+          manager, and log in. (The mobile apps don’t offer JSON exports.)
+</li> <li>Open the <strong>conversation or group</strong> you want to export.</li> <li>
+Click the <strong>⋮ menu</strong> in the top-right corner and choose <strong>Export chat history</strong>.
+</li> <li>
+In the export dialog, select the <strong>Machine-readable JSON</strong> format. You can leave
+          media unchecked for a small, fast file — text, stickers and attachments are recorded in the
+          JSON either way.
+</li> <li>
+Click <strong>Export</strong>. Telegram writes a <code>result.json</code> (in a folder if you
+          included media).
+</li> <li>
+Drop the <code>result.json</code> into the <a href="/ChatWrapped/app/">ChatWrapped analyzer</a>.
+</li> </ol> <h2>JSON or HTML?</h2> <p>
+Telegram offers two export formats. <strong>HTML</strong> is for human reading; <strong>JSON</strong> is for software. ChatWrapped needs the JSON version — if you accidentally exported HTML, the
+        analyzer will tell you immediately and you can re-export. Exporting again takes seconds since
+        Telegram remembers your options.
+</p> <h2>What’s inside result.json</h2> <ul> <li>Chat <strong>name and type</strong> (personal chat, private group, supergroup).</li> <li>
+Every message with <strong>wall-clock date</strong>, sender, text (as formatted parts) and
+          attachment references.
+</li> <li> <strong>Service messages</strong> — joins, pins, calls — which ChatWrapped keeps out of message
+          totals.
+</li> <li><strong>Anonymous admin</strong> messages via the “actor” field in groups.</li> </ul> <h2>Troubleshooting</h2> <h3>“Export chat history” is missing</h3> <p>
+Update Telegram Desktop — the feature has been in stable releases for years, but very old
+        builds hide it.
+</p> <h3>The file is huge</h3> <p>
+Media files dominate export size. Re-export with media unchecked; ChatWrapped needs only the
+        JSON. Files up to 200&nbsp;MB are accepted, and a 10&nbsp;MB JSON parses in a couple of
+        seconds.
+</p> <h3>Secret chats</h3> <p>
+Telegram’s cloud chats export normally. <strong>Secret chats</strong> are device-bound and are
+        not part of the desktop export — that’s by design of Telegram’s security model.
+</p> <h3>Where did the file go?</h3> <p>
+Telegram asks for a destination folder before exporting — the default is your Downloads
+        folder. The JSON is named <code>result.json</code>; if you included media it sits next to a <code>photos/</code> or
+<code>files/</code> folder you can ignore.
+</p> </div> <div class="mt-12 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center"> <p class="font-display text-lg font-bold text-white">result.json in hand?</p> <p class="mt-1 mb-4 text-sm text-zinc-400">
+Unwrap the conversation — locally and privately.
+</p> <a href="/ChatWrapped/app/" class="inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-6 py-3 font-bold text-white">Open the analyzer →</a> </div> <p class="mt-6 text-xs leading-relaxed text-zinc-600">
+This guide describes Telegram Desktop’s documented export feature and is independent of
+      Telegram.
+</p> <p class="mt-4 text-xs leading-relaxed text-zinc-600">ChatWrapped is an independent project and is not affiliated with, endorsed by or sponsored by WhatsApp, Meta, Telegram or Spotify.</p> </main>  <footer class="border-t border-white/10 bg-black/30"> <div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-[1.4fr_1fr_1fr]"> <div> <p class="font-display text-lg font-bold text-white">ChatWrapped</p> <p class="mt-2 max-w-xs text-sm text-zinc-400"> Your conversations. Your memories. Your story. Free, private conversation analytics for WhatsApp and Telegram exports — processed
+        entirely in your browser.
+</p> <p class="mt-4 text-xs leading-relaxed text-zinc-500">ChatWrapped is an independent project and is not affiliated with, endorsed by or sponsored by WhatsApp, Meta, Telegram or Spotify.</p> </div> <nav aria-label="Footer"> <p class="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Learn</p> <ul class="mt-3 space-y-2 text-sm"> <li> <a class="text-zinc-400 hover:text-white" href="/ChatWrapped/how-to-export-whatsapp-chat/"> Export WhatsApp chat </a> </li><li> <a class="text-zinc-400 hover:text-white" href="/ChatWrapped/how-to-export-telegram-chat/"> Export Telegram chat </a> </li><li> <a class="text-zinc-400 hover:text-white" href="/ChatWrapped/how-chat-analysis-works/"> How analysis works </a> </li> </ul> </nav> <nav aria-label="Footer secondary"> <p class="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Project</p> <ul class="mt-3 space-y-2 text-sm"> <li> <a class="text-zinc-400 hover:text-white" href="/ChatWrapped/privacy/">Privacy policy</a> </li> <li><a class="text-zinc-400 hover:text-white" href="https://github.com/singhtanishq/ChatWrapped">Source on GitHub</a></li> <li><a class="text-zinc-400 hover:text-white" href="/ChatWrapped/about/">About & FAQ</a></li> </ul> </nav> </div> <div class="border-t border-white/5 px-6 py-5 text-center text-xs text-zinc-600">
+© 2026 ChatWrapped · MIT license · Built as a static site on GitHub Pages — no backend, no accounts,
+    no tracking.
+</div> </footer> </body> </html>

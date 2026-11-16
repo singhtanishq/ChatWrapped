@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en" class="min-h-full"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>How Chat Analysis Works — ChatWrapped’s Metric Definitions</title><meta name="description" content="How ChatWrapped turns chat exports into statistics: the normalized message model, response-time burst rules, conversation starts, emoji counting and timezone handling — all documented."><link rel="canonical" href="https://singhtanishq.github.io/ChatWrapped/how-chat-analysis-works/"><link rel="icon" type="image/svg+xml" href="/ChatWrapped/favicon.svg"><link rel="manifest" href="/ChatWrapped/manifest.webmanifest"><meta name="theme-color" content="#0b0910"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="ChatWrapped"><meta property="og:title" content="How Chat Analysis Works — ChatWrapped’s Metric Definitions"><meta property="og:description" content="How ChatWrapped turns chat exports into statistics: the normalized message model, response-time burst rules, conversation starts, emoji counting and timezone handling — all documented."><meta property="og:url" content="https://singhtanishq.github.io/ChatWrapped/how-chat-analysis-works/"><meta property="og:image" content="https://singhtanishq.github.io/ChatWrapped/images/og-default.png"><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How Chat Analysis Works — ChatWrapped’s Metric Definitions"><meta name="twitter:description" content="How ChatWrapped turns chat exports into statistics: the normalized message model, response-time burst rules, conversation starts, emoji counting and timezone handling — all documented."><meta name="twitter:image" content="https://singhtanishq.github.io/ChatWrapped/images/og-default.png"><link rel="stylesheet" href="/ChatWrapped/_astro/PageLayout.BV34ix_l.css"><link rel="stylesheet" href="/ChatWrapped/_astro/Prose.BNHUmcxk.css"></head> <body class="min-h-dvh bg-[#0b0910] text-zinc-100 antialiased"> <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-violet-600 focus:px-4 focus:py-2 focus:text-white">
+Skip to content
+</a> <header class="sticky top-0 z-40 border-b border-white/10 bg-[#0b0910]/85 backdrop-blur"> <div class="mx-auto flex max-w-6xl items-center gap-4 px-6 py-3.5"> <a href="/ChatWrapped/" class="flex items-center gap-2 font-display text-lg font-bold text-white"> <svg viewBox="0 0 64 64" class="size-7 shrink-0" aria-hidden="true"> <defs> <linearGradient id="nav-g" x1="0" y1="0" x2="1" y2="1"> <stop offset="0" stop-color="#7c3aed"></stop> <stop offset="0.55" stop-color="#d946ef"></stop> <stop offset="1" stop-color="#fb923c"></stop> </linearGradient> </defs> <path d="M32 6C17.1 6 5 16.6 5 29.7c0 7.4 3.9 14 10 18.4L13 58l10.6-4.6c2.6.7 5.5 1.1 8.4 1.1 14.9 0 27-10.6 27-23.8S46.9 6 32 6z" fill="url(#nav-g)"></path> <path d="M20.5 30.2 25 34.5l10.8-10.9" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"></path> </svg>
+ChatWrapped
+</a> <nav aria-label="Main" class="ml-auto hidden items-center gap-1 sm:flex"> <a class="rounded-lg px-3 py-2 text-sm font-medium transition-colors text-zinc-400 hover:text-white" href="/ChatWrapped/how-to-export-whatsapp-chat/"> Export guides </a><a class="rounded-lg px-3 py-2 text-sm font-medium transition-colors text-white" href="/ChatWrapped/how-chat-analysis-works/"> How it works </a><a class="rounded-lg px-3 py-2 text-sm font-medium transition-colors text-zinc-400 hover:text-white" href="/ChatWrapped/privacy/"> Privacy </a><a class="rounded-lg px-3 py-2 text-sm font-medium transition-colors text-zinc-400 hover:text-white" href="/ChatWrapped/about/"> About </a> </nav> <a href="/ChatWrapped/app/" class="ml-auto rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-fuchsia-950/40 transition hover:from-violet-500 hover:to-fuchsia-500 sm:ml-2">Open analyzer</a> </div> </header>   <main id="main" class="mx-auto max-w-3xl px-6 py-12"> <h1 class="font-display text-4xl font-bold text-white">How Chat Analysis Works</h1> <p class="mt-4 text-lg text-zinc-300">
+Most chat tools show numbers without explaining where they come from. ChatWrapped does the
+      opposite: every metric has a written definition, explicit exclusions and tested edge cases.
+      This page is the short version; the complete reference lives in the repository at
+<code>docs/analytics/METRIC_DEFINITIONS.md</code>.
+</p> <div class="prose-cw"> <h2>Step 1 — Parsing into a normalized model</h2> <p>
+Both supported formats (WhatsApp TXT, Telegram JSON) are parsed into one internal message
+        model: participant, timestamp, text, type (text / media / system) and attachment flag. This
+        is why the same statistics and stories work identically for both platforms. Parsing handles
+        multiline messages, colons in text, Unicode directionality marks, attachment placeholders,
+        deletion markers and system events.
+</p> <h2>Step 2 — The eligible pool</h2> <p>
+Statistics are computed over the <strong>eligible pool</strong>: non-system messages from
+        included participants, inside the selected date range. You always see both the raw parsed
+        count and the eligible count, so exclusions are never hidden. Group noise (joins, pins,
+        calls, “this message was deleted”) never pollutes the numbers.
+</p> <h2>Step 3 — Timestamps without timezone lies</h2> <p>
+Exports store <strong>local wall-clock time with no timezone metadata</strong>. ChatWrapped
+        interprets the wall clock as UTC — a constant offset — which keeps every <em>duration</em> exact
+        (response times, gaps, streaks) and keeps every <em>bucket</em> faithful to what the sender saw
+        on their clock. No timezone is ever invented. WhatsApp’s ambiguous DD/MM vs MM/DD formats are
+        resolved from unambiguous evidence and flagged for you to confirm when the data can’t decide.
+</p> <h2>Step 4 — Response times, done honestly</h2> <p>
+Naive tools treat every message pair as a reply, which collapses when people double-text.
+        ChatWrapped’s rules:
+</p> <ul> <li> <strong>Burst:</strong> consecutive messages by the same participant within 120 seconds form
+          one burst.
+</li> <li> <strong>Response event:</strong> the first message from a different participant after a burst,
+          measured from the burst’s first message.
+</li> <li> <strong>Validity:</strong> only responses within 6 hours enter averages and medians; longer
+          silences are tracked separately as the longest gap.
+</li> </ul> <p>Boundaries are unit-tested (exactly 6 hours counts; 6 hours + 1 ms does not).</p> <h2>Step 5 — Conversation starts</h2> <p>
+A conversation “starts” after a lull of at least <strong>4 hours</strong> since the previous eligible
+        message — plus the very first message of the selection. The starter is credited. This is why “Conversation
+        Starter” awards need at least three starts.
+</p> <h2>Step 6 — Emoji and words</h2> <p>
+Emoji are counted as <strong>grapheme clusters</strong> via <code>Intl.Segmenter</code>:
+        skin tones, ZWJ families, flags and keycaps are one emoji each — never misleading fragments.
+        Words are segmented per locale, lowercased and filtered (stopwords, numbers, URLs, emails)
+        for signature-word rankings.
+</p> <h2>Step 7 — Stories, records and awards</h2> <p>
+Slides are generated adaptively from the computed analytics — a slide for a missing metric
+        is skipped, never fabricated. Records require sufficient data; awards have explicit
+        thresholds (published in the metric definitions) and ties are reported as ties. Small
+        samples produce a visible “small sample” note.
+</p> <h2>What the analysis refuses to do</h2> <blockquote> Your uploaded conversations are processed entirely in your browser. ChatWrapped does not upload your chat files to its servers. And no statistic implies anything about love, loyalty, personality or relationship
+        quality — ChatWrapped counts events; people make meanings.
+</blockquote> <p>
+Curious how this plays out on real data? Open the <a href="/ChatWrapped/app/">analyzer</a> — the
+        sample data is synthetic and clearly labeled, so you can explore every screen without exporting
+        anything.
+</p> </div> <p class="mt-10 text-xs leading-relaxed text-zinc-600">ChatWrapped is an independent project and is not affiliated with, endorsed by or sponsored by WhatsApp, Meta, Telegram or Spotify.</p> </main>  <footer class="border-t border-white/10 bg-black/30"> <div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-[1.4fr_1fr_1fr]"> <div> <p class="font-display text-lg font-bold text-white">ChatWrapped</p> <p class="mt-2 max-w-xs text-sm text-zinc-400"> Your conversations. Your memories. Your story. Free, private conversation analytics for WhatsApp and Telegram exports — processed
+        entirely in your browser.
+</p> <p class="mt-4 text-xs leading-relaxed text-zinc-500">ChatWrapped is an independent project and is not affiliated with, endorsed by or sponsored by WhatsApp, Meta, Telegram or Spotify.</p> </div> <nav aria-label="Footer"> <p class="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Learn</p> <ul class="mt-3 space-y-2 text-sm"> <li> <a class="text-zinc-400 hover:text-white" href="/ChatWrapped/how-to-export-whatsapp-chat/"> Export WhatsApp chat </a> </li><li> <a class="text-zinc-400 hover:text-white" href="/ChatWrapped/how-to-export-telegram-chat/"> Export Telegram chat </a> </li><li> <a class="text-zinc-400 hover:text-white" href="/ChatWrapped/how-chat-analysis-works/"> How analysis works </a> </li> </ul> </nav> <nav aria-label="Footer secondary"> <p class="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Project</p> <ul class="mt-3 space-y-2 text-sm"> <li> <a class="text-zinc-400 hover:text-white" href="/ChatWrapped/privacy/">Privacy policy</a> </li> <li><a class="text-zinc-400 hover:text-white" href="https://github.com/singhtanishq/ChatWrapped">Source on GitHub</a></li> <li><a class="text-zinc-400 hover:text-white" href="/ChatWrapped/about/">About & FAQ</a></li> </ul> </nav> </div> <div class="border-t border-white/5 px-6 py-5 text-center text-xs text-zinc-600">
+© 2026 ChatWrapped · MIT license · Built as a static site on GitHub Pages — no backend, no accounts,
+    no tracking.
+</div> </footer> </body> </html>
