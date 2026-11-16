@@ -6,17 +6,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
-    name: Build static site
+  build-and-deploy:
+    name: Build and publish static site
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,23 +37,15 @@ jobs:
       - name: Validate built site (routes, assets, links)
         run: pnpm validate:links
 
-      # Enables GitHub Pages (build_type=workflow) on first deployment using
-      # the workflow's own token — no repository settings change needed.
-      - uses: actions/configure-pages@v5
+      # Publishes dist/ to the gh-pages branch, which GitHub Pages serves
+      # ("Deploy from a branch"). Branch-based publishing is used because
+      # creating a Pages site with the Actions artifact flow requires
+      # repository administration rights the workflow token does not have;
+      # this route is fully self-contained with the default GITHUB_TOKEN.
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          enablement: true
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: "deploy: build from ${{ github.sha }}"

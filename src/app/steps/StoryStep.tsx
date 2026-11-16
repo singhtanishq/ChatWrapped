@@ -261,7 +261,10 @@ export function StoryStep() {
               {slide.title}
             </h2>
             <p
-              className="font-display mt-5 text-6xl font-bold tracking-tight sm:text-7xl"
+              className={
+                "font-display mt-5 font-bold tracking-tight " +
+                (slide.value.length > 12 ? "text-4xl sm:text-5xl" : "text-6xl sm:text-7xl")
+              }
               style={{
                 background: `linear-gradient(90deg, ${theme.accent}, ${theme.accent2})`,
                 WebkitBackgroundClip: "text",
