@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = Number(process.env.E2E_PORT ?? 4321);
-const baseURL = `http://127.0.0.1:${PORT}/ChatWrapped/`;
+const baseURL = `http://localhost:${PORT}/ChatWrapped/`;
 
 export default defineConfig({
   testDir: "tests/e2e",
@@ -25,6 +25,6 @@ export default defineConfig({
   },
   projects: [
     { name: "chromium-desktop", use: { ...devices["Desktop Chrome"] } },
-    { name: "chromium-mobile", use: { ...devices["iPhone 14"] } },
+    { name: "chromium-mobile", use: { ...devices["iPhone 14"], browserName: "chromium" } },
   ],
 });

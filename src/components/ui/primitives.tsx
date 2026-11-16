@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 /** Shared, accessible UI primitives for the ChatWrapped app chrome. */
 
@@ -172,6 +172,50 @@ export function EmptyState({
       {description ? <p className="max-w-sm text-sm text-zinc-400">{description}</p> : null}
       {action ? <div className="mt-2">{action}</div> : null}
     </div>
+  );
+}
+
+/** Two-step destructive-action button: first click arms, second click confirms. */
+export function ConfirmButton({
+  children,
+  confirmLabel,
+  onConfirm,
+  className,
+  variant = "danger",
+  size = "md",
+  disabled,
+}: {
+  children: ReactNode;
+  confirmLabel: string;
+  onConfirm: () => void;
+  className?: string;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  disabled?: boolean;
+}) {
+  const [armed, setArmed] = useState(false);
+  useEffect(() => {
+    if (!armed) return;
+    const t = setTimeout(() => setArmed(false), 4000);
+    return () => clearTimeout(t);
+  }, [armed]);
+  return (
+    <Button
+      variant={variant}
+      size={size}
+      disabled={disabled}
+      className={className}
+      onClick={() => {
+        if (armed) {
+          setArmed(false);
+          onConfirm();
+        } else {
+          setArmed(true);
+        }
+      }}
+    >
+      {armed ? confirmLabel : children}
+    </Button>
   );
 }
 

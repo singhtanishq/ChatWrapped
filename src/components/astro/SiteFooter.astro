@@ -1,0 +1,58 @@
+---
+import { SITE, DISCLAIMER } from "@/lib/site";
+
+interface Props {
+  /** Base-relative links are computed from Astro.url for correct <base> behavior. */
+}
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const year = new Date().getFullYear();
+
+const links = [
+  { href: `${base}/how-to-export-whatsapp-chat/`, label: "Export WhatsApp chat" },
+  { href: `${base}/how-to-export-telegram-chat/`, label: "Export Telegram chat" },
+  { href: `${base}/how-chat-analysis-works/`, label: "How analysis works" },
+  { href: `${base}/privacy/`, label: "Privacy" },
+  { href: `${base}/about/`, label: "About" },
+];
+---
+
+<footer class="border-t border-white/10 bg-black/30">
+  <div class="mx-auto grid max-w-6xl gap-8 px-6 py-12 sm:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <p class="font-display text-lg font-bold text-white">{SITE.name}</p>
+      <p class="mt-2 max-w-xs text-sm text-zinc-400">
+        {SITE.tagline} Free, private conversation analytics for WhatsApp and Telegram exports — processed
+        entirely in your browser.
+      </p>
+      <p class="mt-4 text-xs leading-relaxed text-zinc-500">{DISCLAIMER}</p>
+    </div>
+    <nav aria-label="Footer">
+      <p class="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Learn</p>
+      <ul class="mt-3 space-y-2 text-sm">
+        {
+          links.slice(0, 3).map((l) => (
+            <li>
+              <a class="text-zinc-400 hover:text-white" href={l.href}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <nav aria-label="Footer secondary">
+      <p class="text-xs font-semibold tracking-wider text-zinc-400 uppercase">Project</p>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li>
+          <a class="text-zinc-400 hover:text-white" href={`${base}/privacy/`}>Privacy policy</a>
+        </li>
+        <li><a class="text-zinc-400 hover:text-white" href={SITE.repo}>Source on GitHub</a></li>
+        <li><a class="text-zinc-400 hover:text-white" href={`${base}/about/`}>About & FAQ</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="border-t border-white/5 px-6 py-5 text-center text-xs text-zinc-600">
+    © {year} ChatWrapped · MIT license · Built as a static site on GitHub Pages — no backend, no accounts,
+    no tracking.
+  </div>
+</footer>

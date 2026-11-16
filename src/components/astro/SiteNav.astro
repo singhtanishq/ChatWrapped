@@ -1,0 +1,54 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const path = Astro.url.pathname;
+const links = [
+  { href: `${base}/how-to-export-whatsapp-chat/`, label: "Export guides" },
+  { href: `${base}/how-chat-analysis-works/`, label: "How it works" },
+  { href: `${base}/privacy/`, label: "Privacy" },
+  { href: `${base}/about/`, label: "About" },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-white/10 bg-[#0b0910]/85 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center gap-4 px-6 py-3.5">
+    <a href={`${base}/`} class="flex items-center gap-2 font-display text-lg font-bold text-white">
+      <svg viewBox="0 0 64 64" class="size-7 shrink-0" aria-hidden="true">
+        <defs>
+          <linearGradient id="nav-g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#7c3aed"></stop>
+            <stop offset="0.55" stop-color="#d946ef"></stop>
+            <stop offset="1" stop-color="#fb923c"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          d="M32 6C17.1 6 5 16.6 5 29.7c0 7.4 3.9 14 10 18.4L13 58l10.6-4.6c2.6.7 5.5 1.1 8.4 1.1 14.9 0 27-10.6 27-23.8S46.9 6 32 6z"
+          fill="url(#nav-g)"></path>
+        <path
+          d="M20.5 30.2 25 34.5l10.8-10.9"
+          fill="none"
+          stroke="#fff"
+          stroke-width="4.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+      ChatWrapped
+    </a>
+    <nav aria-label="Main" class="ml-auto hidden items-center gap-1 sm:flex">
+      {
+        links.map((l) => (
+          <a
+            class={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${path === l.href ? "text-white" : "text-zinc-400 hover:text-white"}`}
+            href={l.href}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+    <a
+      href={`${base}/app/`}
+      class="ml-auto rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-fuchsia-950/40 transition hover:from-violet-500 hover:to-fuchsia-500 sm:ml-2"
+      >Open analyzer</a
+    >
+  </div>
+</header>

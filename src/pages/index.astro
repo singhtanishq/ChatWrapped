@@ -1,16 +1,325 @@
 ---
 import PageLayout from "@/layouts/PageLayout.astro";
-import { SITE } from "@/lib/site";
+import { SITE, DISCLAIMER, PRIVACY_PROMISE } from "@/lib/site";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: SITE.name,
+    url: `${SITE.url}${import.meta.env.BASE_URL}`,
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any (browser-based)",
+    description:
+      "Free, privacy-first conversation analytics. Turn WhatsApp and Telegram chat exports into statistics, personalized stories and shareable cards — processed entirely in your browser.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    isAccessibleForFree: true,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Is ChatWrapped free?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. ChatWrapped is free to use, with no accounts, subscriptions or paid features.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Are my chats uploaded anywhere?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. Your export is parsed and analyzed entirely in your browser. ChatWrapped has no server that could receive your messages.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Which formats are supported?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "WhatsApp TXT exports (Android and iOS) and Telegram Desktop machine-readable JSON exports.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Does it work offline?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. After the first visit the app is cached by a service worker, so the core import-analyze-story-export workflow works without a connection.",
+        },
+      },
+    ],
+  },
+];
+
+const steps = [
+  {
+    icon: "1️⃣",
+    title: "Export your chat",
+    body: "Grab a WhatsApp TXT export or a Telegram Desktop JSON export. It takes under a minute — we have step-by-step guides for both.",
+  },
+  {
+    icon: "2️⃣",
+    title: "Drop it in",
+    body: "Drag the file into the analyzer. Parsing and analysis run locally in Web Workers — your messages never leave this device.",
+  },
+  {
+    icon: "3️⃣",
+    title: "Unwrap the story",
+    body: "Explore accurate statistics, a personalized story sequence and download beautiful share cards for social media.",
+  },
+];
+
+const faqs = [
+  {
+    q: "Is ChatWrapped really free?",
+    a: "Yes — no accounts, no subscriptions, no paid tiers. It runs entirely as a static site.",
+  },
+  {
+    q: "Are my chats uploaded anywhere?",
+    a: "No. Files are read with the browser File API and parsed in a Web Worker on your device. There is no backend that could receive them. You can verify this in your browser's network tab during import.",
+  },
+  {
+    q: "Which formats are supported?",
+    a: "WhatsApp TXT exports (Android and iOS) and Telegram Desktop machine-readable JSON exports. HTML exports and media ZIPs are on the roadmap.",
+  },
+  {
+    q: "Does it work offline?",
+    a: "Yes — after your first visit the app shell, parsers and analytics code are cached, so the core workflow works without a connection.",
+  },
+  {
+    q: "What about group chats?",
+    a: "Fully supported. You can include or exclude any participant, anonymize names and filter by date range before analyzing.",
+  },
+  {
+    q: "Do the statistics prove anything about a relationship?",
+    a: "No. ChatWrapped reports counting statistics — message totals, activity rhythms, emoji frequencies. They are playful facts about activity, never judgments about people.",
+  },
+];
 ---
 
 <PageLayout
-  title={`${SITE.name} — ${SITE.tagline}`}
-  description="Turn your WhatsApp and Telegram conversations into beautiful, shareable recaps. Free, instant and private — processed entirely in your browser."
+  title={`${SITE.name} — ${SITE.tagline_short}`}
+  description="Turn your WhatsApp and Telegram conversations into beautiful, shareable recaps. Accurate stats, personalized stories and free share cards — processed entirely in your browser, nothing uploaded."
+  structuredData={structuredData}
 >
-  <main id="main" class="flex min-h-dvh flex-col items-center justify-center gap-6 px-6 text-center">
-    <h1 class="font-display text-5xl font-bold">Your chats have a story.</h1>
-    <p class="max-w-md text-zinc-400">
-      ChatWrapped is under construction. Full conversation analytics, story recaps and share cards are coming to this page.
-    </p>
+  <main id="main">
+    <!-- Hero -->
+    <section class="relative overflow-hidden">
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+        <div
+          class="absolute -top-40 right-[-10%] size-[38rem] rounded-full bg-violet-700/30 blur-3xl"
+        >
+        </div>
+        <div
+          class="absolute bottom-[-30%] left-[-10%] size-[34rem] rounded-full bg-fuchsia-700/25 blur-3xl"
+        >
+        </div>
+        <div class="absolute top-1/3 left-1/3 size-[24rem] rounded-full bg-orange-600/15 blur-3xl">
+        </div>
+      </div>
+      <div class="relative mx-auto max-w-5xl px-6 pt-20 pb-16 text-center sm:pt-28 sm:pb-24">
+        <p
+          class="animate-fade-up mx-auto inline-flex items-center gap-2 rounded-full border border-fuchsia-400/30 bg-fuchsia-500/10 px-4 py-1.5 text-xs font-semibold text-fuchsia-200"
+        >
+          🔒 100% local processing · free · no account
+        </p>
+        <h1
+          class="font-display animate-fade-up mt-6 text-5xl leading-[1.05] font-bold tracking-tight text-white sm:text-7xl"
+        >
+          Your chats have a story.<br />
+          <span
+            class="bg-gradient-to-r from-violet-300 via-fuchsia-300 to-orange-200 bg-clip-text text-transparent"
+            >Let's unwrap it.</span
+          >
+        </h1>
+        <p class="animate-fade-up mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-300">
+          Turn your WhatsApp and Telegram conversations into beautiful, shareable recaps — message
+          stats, busiest days, favorite emoji and response rhythms. Free, instant and private.
+        </p>
+        <div class="animate-fade-up mt-9 flex flex-wrap items-center justify-center gap-4">
+          <a
+            href={`${base}/app/`}
+            class="rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-8 py-4 text-base font-bold text-white shadow-xl shadow-fuchsia-950/50 transition hover:scale-[1.02] hover:from-violet-500 hover:to-fuchsia-500"
+          >
+            Create my ChatWrapped →
+          </a>
+          <a
+            href={`${base}/app/?demo=friends#/stories`}
+            class="rounded-2xl border border-white/20 bg-white/5 px-8 py-4 text-base font-semibold text-zinc-100 transition hover:bg-white/10"
+          >
+            See an example
+          </a>
+        </div>
+        <p class="mt-6 text-xs text-zinc-500">{PRIVACY_PROMISE}</p>
+      </div>
+    </section>
+
+    <!-- Example cards preview -->
+    <section class="mx-auto max-w-6xl px-6 pb-20">
+      <div class="grid gap-5 sm:grid-cols-3">
+        <div
+          class="rounded-3xl border border-white/10 bg-gradient-to-br from-violet-900/60 to-fuchsia-900/40 p-6"
+        >
+          <p class="text-[11px] font-bold tracking-[0.2em] text-fuchsia-300 uppercase">
+            Chapter one
+          </p>
+          <p class="font-display mt-3 text-2xl font-bold text-white">You exchanged</p>
+          <p
+            class="font-display mt-2 text-6xl font-bold tracking-tight text-transparent bg-gradient-to-r from-fuchsia-300 to-orange-200 bg-clip-text"
+          >
+            2,444
+          </p>
+          <p class="mt-2 text-sm text-zinc-300">messages · 15,832 words</p>
+        </div>
+        <div
+          class="rounded-3xl border border-white/10 bg-gradient-to-br from-sky-900/60 to-indigo-900/40 p-6"
+        >
+          <p class="text-[11px] font-bold tracking-[0.2em] text-sky-300 uppercase">
+            The golden hour
+          </p>
+          <p class="font-display mt-3 text-2xl font-bold text-white">
+            10pm is when you talk the most
+          </p>
+          <div class="mt-4 flex h-16 items-end gap-1.5" aria-hidden="true">
+            {
+              [35, 55, 40, 70, 50, 90, 62, 48, 76, 58].map((h) => (
+                <div
+                  class="w-full rounded-t bg-sky-400/80"
+                  style={`height:${h}%;opacity:${0.4 + h / 150}`}
+                />
+              ))
+            }
+          </div>
+          <p class="mt-2 text-sm text-zinc-300">late-night conversations hit different</p>
+        </div>
+        <div
+          class="rounded-3xl border border-white/10 bg-gradient-to-br from-orange-900/50 to-rose-900/40 p-6"
+        >
+          <p class="text-[11px] font-bold tracking-[0.2em] text-orange-300 uppercase">
+            The signature
+          </p>
+          <p class="font-display mt-3 text-2xl font-bold text-white">Your most-used emoji</p>
+          <p class="mt-3 text-6xl" aria-hidden="true">😂</p>
+          <p class="mt-2 text-sm text-zinc-300">used 186 times — 31% of all emoji</p>
+        </div>
+      </div>
+      <p class="mt-4 text-center text-xs text-zinc-500">
+        Illustrative example values shown on this page — the analyzer computes every number from
+        your real export.
+      </p>
+    </section>
+
+    <!-- Platforms -->
+    <section class="border-y border-white/10 bg-white/[0.02] py-16">
+      <div class="mx-auto max-w-6xl px-6">
+        <h2 class="font-display text-center text-3xl font-bold text-white sm:text-4xl">
+          Two platforms, one privacy-first analyzer
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-center text-sm text-zinc-400">
+          ChatWrapped reads the official exports — never your phone, never your account.
+        </p>
+        <div class="mt-10 grid gap-6 sm:grid-cols-2">
+          <div class="rounded-3xl border border-white/10 bg-[#10131a] p-7">
+            <div class="flex items-center gap-3">
+              <span aria-hidden="true" class="text-3xl">💬</span>
+              <h3 class="font-display text-xl font-bold text-white">WhatsApp</h3>
+            </div>
+            <p class="mt-3 text-sm leading-relaxed text-zinc-400">
+              Works with the “Export chat → Without media” TXT file from both Android and iOS.
+              Android and iOS timestamp formats, multiline messages, attachments and system events
+              are all handled.
+            </p>
+            <a
+              class="mt-4 inline-block text-sm font-semibold text-fuchsia-300 hover:text-fuchsia-200"
+              href={`${base}/how-to-export-whatsapp-chat/`}>How to export a WhatsApp chat →</a
+            >
+          </div>
+          <div class="rounded-3xl border border-white/10 bg-[#10131a] p-7">
+            <div class="flex items-center gap-3">
+              <span aria-hidden="true" class="text-3xl">✈️</span>
+              <h3 class="font-display text-xl font-bold text-white">Telegram</h3>
+            </div>
+            <p class="mt-3 text-sm leading-relaxed text-zinc-400">
+              Works with Telegram Desktop's “Export chat history” in machine-readable JSON format.
+              Personal chats, groups, stickers, voice notes and service messages are all understood.
+            </p>
+            <a
+              class="mt-4 inline-block text-sm font-semibold text-fuchsia-300 hover:text-fuchsia-200"
+              href={`${base}/how-to-export-telegram-chat/`}>How to export a Telegram chat →</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="mx-auto max-w-6xl px-6 py-20">
+      <h2 class="font-display text-center text-3xl font-bold text-white sm:text-4xl">
+        How it works
+      </h2>
+      <div class="mt-12 grid gap-8 sm:grid-cols-3">
+        {
+          steps.map((s) => (
+            <div class="text-center">
+              <div aria-hidden="true" class="mx-auto text-4xl">
+                {s.icon}
+              </div>
+              <h3 class="font-display mt-4 text-lg font-bold text-white">{s.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-zinc-400">{s.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div
+        class="mx-auto mt-12 max-w-3xl rounded-2xl border border-emerald-400/25 bg-emerald-500/10 p-5 text-center"
+      >
+        <p class="text-sm font-semibold text-emerald-200">🔒 The privacy promise</p>
+        <p class="mt-2 text-sm leading-relaxed text-emerald-100/90">{PRIVACY_PROMISE}</p>
+        <p class="mt-2 text-xs text-emerald-200/70">
+          No account, no cookies for tracking, no analytics scripts, no third-party requests during
+          processing.
+          <a class="underline hover:text-emerald-100" href={`${base}/privacy/`}
+            >Read the full privacy policy →</a
+          >
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="border-t border-white/10 bg-white/[0.02] py-16">
+      <div class="mx-auto max-w-3xl px-6">
+        <h2 class="font-display text-center text-3xl font-bold text-white sm:text-4xl">
+          Frequently asked questions
+        </h2>
+        <div class="mt-10 space-y-3">
+          {
+            faqs.map((f) => (
+              <details class="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4">
+                <summary class="cursor-pointer text-sm font-semibold text-white">{f.q}</summary>
+                <p class="mt-2 text-sm leading-relaxed text-zinc-400">{f.a}</p>
+              </details>
+            ))
+          }
+        </div>
+        <div class="mt-10 text-center">
+          <a
+            href={`${base}/app/`}
+            class="font-display inline-block rounded-2xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-8 py-4 text-base font-bold text-white shadow-xl shadow-fuchsia-950/50 transition hover:scale-[1.02]"
+          >
+            Create my ChatWrapped →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 py-10 text-center text-xs leading-relaxed text-zinc-600">
+      <p class="mx-auto max-w-3xl">{DISCLAIMER}</p>
+    </section>
   </main>
 </PageLayout>

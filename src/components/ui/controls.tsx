@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { cx } from "./primitives";
 
 /** Form controls and overlay primitives with accessible behavior. */
@@ -251,11 +251,16 @@ export function Dialog({
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const titleId = useId();
+  // Content is mounted only on the client after first open: this keeps the
+  // SSR output free of environment-dependent text (navigator.onLine etc.)
+  // and prevents hydration mismatches.
+  const [contentMounted, setContentMounted] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     if (open && !el.open) el.showModal();
     if (!open && el.open) el.close();
+    if (open) setContentMounted(true);
   }, [open]);
   return (
     <dialog
@@ -283,7 +288,9 @@ export function Dialog({
           ✕
         </button>
       </div>
-      <div className="max-h-[70vh] overflow-y-auto px-6 py-5">{children}</div>
+      <div className="max-h-[70vh] overflow-y-auto px-6 py-5">
+        {contentMounted ? children : null}
+      </div>
     </dialog>
   );
 }
