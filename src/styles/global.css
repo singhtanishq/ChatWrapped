@@ -3,6 +3,39 @@
 @theme {
   --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-fade-up: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-slide-in: slide-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-progress-indeterminate: progress-indeterminate 1.4s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes progress-indeterminate {
+    0% {
+      transform: translateX(-120%);
+    }
+    100% {
+      transform: translateX(420%);
+    }
+  }
 }
 
 :root {
@@ -12,6 +45,151 @@
 html {
   font-family: var(--font-sans);
   scroll-behavior: smooth;
+}
+
+body {
+  text-rendering: optimizeLegibility;
+}
+
+/* App scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+/* ---- Story / card surfaces themed via CSS vars (see themeToCssVars) ---- */
+
+.theme-surface {
+  background: var(--tw-bg);
+  color: var(--tw-text);
+  border-radius: var(--tw-radius, 0px);
+  letter-spacing: var(--tw-letter, normal);
+}
+
+.theme-surface h1,
+.theme-surface h2,
+.theme-surface h3 {
+  font-family: var(--font-display);
+}
+
+.theme-decor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.theme-decor-blobs::before,
+.theme-decor-blobs::after {
+  content: "";
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+}
+.theme-decor-blobs::before {
+  background: var(--tw-gradient-a);
+  top: -25%;
+  right: -30%;
+}
+.theme-decor-blobs::after {
+  background: var(--tw-gradient-c);
+  bottom: -30%;
+  left: -25%;
+}
+
+.theme-decor-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.theme-decor-dots::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px);
+  background-size: 26px 26px;
+}
+.theme-decor-dots::after {
+  content: "";
+  position: absolute;
+  width: 45vmax;
+  height: 45vmax;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  background: var(--tw-gradient-a);
+  top: -18%;
+  right: -18%;
+}
+
+.theme-decor-rings::before {
+  content: "";
+  position: absolute;
+  top: 8%;
+  right: -20%;
+  width: 60vmin;
+  height: 60vmin;
+  border-radius: 50%;
+  border: 2.5px solid var(--tw-accent);
+  opacity: 0.18;
+  box-shadow:
+    0 0 0 4vmin transparent,
+    0 0 0 9vmin var(--tw-accent-2),
+    0 0 0 14vmin transparent,
+    0 0 0 19vmin var(--tw-accent-3);
+  outline: 2.5px solid var(--tw-accent);
+  outline-offset: 24vmin;
+}
+
+.theme-decor-stripes::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-45deg, transparent 0 26px, rgba(0, 0, 0, 0.035) 26px 28px);
+}
+
+.theme-decor-confetti::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle 4px at 12% 20%, var(--tw-accent) 97%, transparent),
+    radial-gradient(circle 3px at 28% 8%, var(--tw-accent-2) 97%, transparent),
+    radial-gradient(circle 5px at 44% 16%, var(--tw-accent-3) 97%, transparent),
+    radial-gradient(circle 3px at 61% 6%, var(--tw-accent-2) 97%, transparent),
+    radial-gradient(circle 4px at 78% 14%, var(--tw-accent) 97%, transparent),
+    radial-gradient(circle 4px at 90% 26%, var(--tw-accent-3) 97%, transparent),
+    radial-gradient(circle 3px at 18% 78%, var(--tw-accent-2) 97%, transparent),
+    radial-gradient(circle 5px at 36% 90%, var(--tw-accent-3) 97%, transparent),
+    radial-gradient(circle 4px at 58% 84%, var(--tw-accent) 97%, transparent),
+    radial-gradient(circle 3px at 74% 92%, var(--tw-accent-2) 97%, transparent),
+    radial-gradient(circle 4px at 88% 80%, var(--tw-accent) 97%, transparent),
+    radial-gradient(circle 3px at 6% 50%, var(--tw-accent-3) 97%, transparent);
+  opacity: 0.8;
+}
+
+/* ---- Focus and selection ---- */
+
+::selection {
+  background: rgba(232, 121, 249, 0.35);
 }
 
 @media (prefers-reduced-motion: reduce) {
